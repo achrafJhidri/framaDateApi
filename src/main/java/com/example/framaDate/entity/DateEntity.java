@@ -19,7 +19,7 @@ public class DateEntity {
 
     private Date date;
 
-    @OneToMany(mappedBy = "date",
+    @OneToMany(mappedBy = "voteId.date",
             orphanRemoval = true,
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)

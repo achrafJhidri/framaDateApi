@@ -17,18 +17,10 @@ import javax.persistence.*;
 public class VoteEntity {
 
     @EmbeddedId
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name="user_id",nullable = false),
-            @JoinColumn(name="date_id",nullable = false)
-    })
     private VoteId voteId;
-
-
 
     private String comment;
     @Enumerated(EnumType.STRING)
     private Disponibilite disponibilite;
-
 
 }
