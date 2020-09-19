@@ -1,4 +1,4 @@
-package com.example.framaDate.entity;
+package com.example.framaDate.entity; // TODO les noms de packages ne sont pas standards. Suivez les recommendations IntelliJ!
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,8 +20,9 @@ public class UserEntity {
     private String name;
     private String email;
 
- //voteId.user ??
-    @OneToMany(mappedBy = "user",
+    //TODO Supprimer ces commentaires
+ //voteId.user ?? => C'était bien ça
+    @OneToMany(mappedBy = "voteId.user",
             orphanRemoval = true,
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)

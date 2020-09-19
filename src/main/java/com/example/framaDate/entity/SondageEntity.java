@@ -36,7 +36,6 @@ public class SondageEntity {
 
     private boolean closed;
 
-
     public boolean isValid(){
         return dates.size()>= 2;
     }
