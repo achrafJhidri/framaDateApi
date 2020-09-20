@@ -20,7 +20,8 @@ public class VoteEntity {
     private VoteId voteId;
 
     private String comment;
+
     @Enumerated(EnumType.STRING)
-    private Disponibilite disponibilite;
+    private Availability availability;
 
 }

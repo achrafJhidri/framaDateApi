@@ -25,6 +25,6 @@ public class CommentEntity {
     private UserEntity user;
 
     @ManyToOne
-    @JoinColumn(name="sondage_id",nullable = false)
-    private SondageEntity sondage;
+    @JoinColumn(name="survey_id",nullable = false)
+    private SurveyEntity survey;
 }

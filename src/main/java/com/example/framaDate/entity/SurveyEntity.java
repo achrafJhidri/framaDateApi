@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name="sondage")
-public class SondageEntity {
+public class SurveyEntity {
 
     @Id
     private Long id;
@@ -22,13 +22,13 @@ public class SondageEntity {
     private String description;
     private Date limitDate;
 
-    @OneToMany(mappedBy = "sondage",
+    @OneToMany(mappedBy = "survey",
             orphanRemoval = true,
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     private Set<DateEntity> dates;
 
-    @OneToMany(mappedBy = "sondage",
+    @OneToMany(mappedBy = "survey",
             orphanRemoval = true,
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
