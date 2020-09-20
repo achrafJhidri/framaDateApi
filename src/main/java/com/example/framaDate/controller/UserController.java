@@ -1,4 +1,4 @@
-package com.example.framaDate.controller;
+package com.example.framadate.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 

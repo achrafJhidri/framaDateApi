@@ -1,4 +1,4 @@
-package com.example.framaDate.model;
+package com.example.framadate.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

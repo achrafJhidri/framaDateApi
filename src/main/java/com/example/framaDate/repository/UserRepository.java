@@ -1,6 +1,6 @@
-package com.example.framaDate.repository;
+package com.example.framadate.repository;
 
-import com.example.framaDate.entity.UserEntity;
+import com.example.framadate.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

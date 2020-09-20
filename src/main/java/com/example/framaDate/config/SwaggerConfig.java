@@ -1,4 +1,4 @@
-package com.example.framaDate.config;
+package com.example.framadate.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

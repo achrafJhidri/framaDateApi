@@ -1,4 +1,4 @@
-package com.example.framaDate.entity; // TODO les noms de packages ne sont pas standards. Suivez les recommendations IntelliJ!
+package com.example.framadate.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

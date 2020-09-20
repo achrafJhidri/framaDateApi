@@ -1,4 +1,4 @@
-package com.example.framaDate.entity;
+package com.example.framadate.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
