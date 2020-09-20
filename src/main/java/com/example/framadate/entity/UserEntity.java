@@ -20,8 +20,7 @@ public class UserEntity {
     private String name;
     private String email;
 
-    //TODO Supprimer ces commentaires
- //voteId.user ?? => C'était bien ça
+
     @OneToMany(mappedBy = "voteId.user",
             orphanRemoval = true,
             cascade = CascadeType.ALL,

@@ -21,5 +21,5 @@ public class VoteId implements Serializable {
     @ManyToOne
     @JoinColumn(name="date_id",nullable = false)
     private DateEntity date;
-    // TODO vous devriez vous mettre d'accord sur un formatting. Il y'a des retours à la ligne ne trop par endroits, ou il en manque à d'autres
+
 }
