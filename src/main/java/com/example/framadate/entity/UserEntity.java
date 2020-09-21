@@ -20,8 +20,7 @@ public class UserEntity {
     private String name;
     private String email;
 
-
-    @OneToMany(mappedBy = "voteId.user",
+    @OneToMany(mappedBy = "user",
             orphanRemoval = true,
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)

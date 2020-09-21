@@ -17,13 +17,12 @@ public class DateEntity {
     @Id
     private Date date;
 
-    @OneToMany(mappedBy = "voteId.date",
+    @OneToMany(mappedBy = "date",
             orphanRemoval = true,
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private Set<VoteEntity> votes;
 
-    @ManyToOne
-    @JoinColumn(name="survey_id",nullable = false)
-    private SurveyEntity survey;
+    @ManyToMany(mappedBy = "dates")
+    private Set<SurveyEntity> surveys;
 }

@@ -12,7 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="sondage")
+@Table(name="survey")
 public class SurveyEntity {
 
     @Id
@@ -22,10 +22,11 @@ public class SurveyEntity {
     private String description;
     private Date limitDate;
 
-    @OneToMany(mappedBy = "survey",
-            orphanRemoval = true,
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(
+            name = "Survey_date",
+            joinColumns = @JoinColumn(name = "survey_id"),
+            inverseJoinColumns = @JoinColumn(name = "date_id"))
     private Set<DateEntity> dates;
 
     @OneToMany(mappedBy = "survey",
@@ -34,9 +35,15 @@ public class SurveyEntity {
             fetch = FetchType.LAZY)
     private Set<CommentEntity> comments;
 
+    @OneToMany(mappedBy = "survey",
+            orphanRemoval = true,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private Set<VoteEntity> votes;
+
     private boolean closed;
 
     public boolean isValid(){
-        return dates.size()>= 2;
+        return dates.size()>= 1;
     }
 }
