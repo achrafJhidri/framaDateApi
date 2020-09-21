@@ -15,8 +15,6 @@ import java.util.Set;
 @Table(name="date")
 public class DateEntity {
     @Id
-    private Long id;
-
     private Date date;
 
     @OneToMany(mappedBy = "voteId.date",
