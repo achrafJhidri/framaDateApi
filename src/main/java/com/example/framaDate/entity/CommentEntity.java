@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +18,9 @@ public class CommentEntity {
 
     private String comment;
 
-    private Date date;
+    private Date creationDate;
+
+    private Date lastUpdate;
 
     @ManyToOne
     @JoinColumn(name="user_id",nullable = false)
