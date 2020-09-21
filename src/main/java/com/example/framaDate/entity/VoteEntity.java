@@ -21,7 +21,6 @@ public class VoteEntity {
 
     private String comment;
 
-    @Enumerated(EnumType.STRING)
     private Availability availability;
 
 }
