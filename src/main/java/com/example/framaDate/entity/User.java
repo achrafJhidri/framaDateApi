@@ -13,8 +13,9 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name="user")
-public class UserEntity {
+public class User {
     @Id
+    @GeneratedValue
     private Long id;
 
     private String name;
@@ -24,12 +25,12 @@ public class UserEntity {
             orphanRemoval = true,
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    private Set<VoteEntity> votes;
+    private Set<Vote> votes;
 
     @OneToMany(mappedBy = "user",
             orphanRemoval = true,
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    private Set<CommentEntity> comments;
+    private Set<Comment> comments;
 
 }

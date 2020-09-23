@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name="comment")
-public class CommentEntity {
+public class Comment {
     @Id
     private Long id;
 
@@ -24,9 +24,9 @@ public class CommentEntity {
 
     @ManyToOne
     @JoinColumn(name="user_id",nullable = false)
-    private UserEntity user;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name="survey_id",nullable = false)
-    private SurveyEntity survey;
+    private Survey survey;
 }

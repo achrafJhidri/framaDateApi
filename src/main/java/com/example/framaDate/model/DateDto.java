@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class User {
-    private String name;
-    private String email;
+import java.util.Date;
+import java.util.Set;
+
+
+public class DateDto {
+    private Date date;
+    private Set<VoteDto> votes;
+
 }

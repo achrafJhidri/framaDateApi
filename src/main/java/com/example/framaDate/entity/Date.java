@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -13,16 +12,17 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name="date")
-public class DateEntity {
+public class Date {
     @Id
-    private Date date;
+    private java.util.Date date;
 
     @OneToMany(mappedBy = "date",
             orphanRemoval = true,
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    private Set<VoteEntity> votes;
+    private Set<Vote> votes;
 
     @ManyToMany(mappedBy = "dates")
-    private Set<SurveyEntity> surveys;
+    private Set<Survey> surveys;
+
 }

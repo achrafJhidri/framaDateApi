@@ -11,25 +11,27 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name="vote")
-public class VoteEntity {
+public class Vote {
 
     @EmbeddedId
     private VoteId voteId;
 
+
     @ManyToOne
     @MapsId("userId")
     @JoinColumn(name = "user_id")
-    UserEntity user;
+    User user;
 
     @ManyToOne
     @MapsId("dateId")
     @JoinColumn(name = "date_id")
-    DateEntity date;
+    Date date;
 
     @ManyToOne
     @MapsId("surveyId")
     @JoinColumn(name = "survey_id")
-    SurveyEntity survey;
+    Survey survey;
+
 
     private String comment;
 

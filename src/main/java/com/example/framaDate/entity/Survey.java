@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -13,33 +12,36 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name="survey")
-public class SurveyEntity {
+public class Survey {
+
 
     @Id
     private Long id;
 
     private String name;
+
     private String description;
-    private Date limitDate;
+
+    private java.util.Date limitDate;
 
     @ManyToMany
     @JoinTable(
             name = "Survey_date",
             joinColumns = @JoinColumn(name = "survey_id"),
             inverseJoinColumns = @JoinColumn(name = "date_id"))
-    private Set<DateEntity> dates;
+    private Set<Date> dates;
 
     @OneToMany(mappedBy = "survey",
             orphanRemoval = true,
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    private Set<CommentEntity> comments;
+    private Set<Comment> comments;
 
     @OneToMany(mappedBy = "survey",
             orphanRemoval = true,
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    private Set<VoteEntity> votes;
+    private Set<Vote> votes;
 
     private boolean closed;
 
