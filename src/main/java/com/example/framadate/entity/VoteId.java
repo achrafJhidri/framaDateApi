@@ -14,14 +14,11 @@ import java.util.Date;
 @NoArgsConstructor
 @Embeddable
 public class VoteId implements Serializable {
-
     @Column(name="user_id")
     private Long userId;
-
     @Column(name="date_id")
     private Date dateId;
-
     @Column(name="survey_id")
-    private Long survey;
+    private Long surveyId;
 
 }
