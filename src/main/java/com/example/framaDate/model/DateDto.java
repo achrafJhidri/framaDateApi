@@ -7,9 +7,12 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.Set;
 
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DateDto {
-    private Date date;
-    private Set<VoteDto> votes;
-
+    Long id;
+    SurveyDto survey;
+    Date date;
+    Set<VoteDto> votes;
 }

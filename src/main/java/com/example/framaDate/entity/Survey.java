@@ -43,9 +43,6 @@ public class Survey {
             fetch = FetchType.LAZY)
     private Set<Vote> votes;
 
-    private boolean closed;
+    private Boolean closed;
 
-    public boolean isValid(){
-        return dates.size()>= 1;
-    }
 }

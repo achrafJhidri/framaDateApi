@@ -14,7 +14,15 @@ import javax.persistence.*;
 public class Vote {
 
     @EmbeddedId
-    private VoteId voteId;
+    VoteId voteId;
+
+    String comment;
+
+    Availability availability;
+
+    java.util.Date votingDate;
+
+    java.util.Date lastUpdate;
 
 
     @ManyToOne
@@ -33,8 +41,6 @@ public class Vote {
     Survey survey;
 
 
-    private String comment;
 
-    private Availability availability;
 
 }
