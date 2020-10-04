@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -33,4 +34,16 @@ public class User {
             fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
+    public boolean equals(final Object o) {
+        if (!(o instanceof User)) return false;
+        return id.equals(((User) o).id );
+    }
+
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    public String toString() {
+        return String.join(",", id.toString(),name,email);
+    }
 }

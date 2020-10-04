@@ -1,11 +1,13 @@
 package com.example.framadate.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
+import java.util.Objects;
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +20,7 @@ public class Vote {
 
     String comment;
 
+    @Enumerated(EnumType.STRING)
     Availability availability;
 
     java.util.Date votingDate;
@@ -43,4 +46,15 @@ public class Vote {
 
 
 
+    public boolean equals(final Object o) {
+        if (!(o instanceof Vote)) return false;
+        return voteId.equals(((Vote) o).voteId);
+    }
+    public int hashCode() {
+        return Objects.hashCode(voteId);
+    }
+
+    public String toString() {
+        return String.join(",",voteId.toString(),availability.toString(),comment,votingDate.toString(),lastUpdate.toString());
+    }
 }
