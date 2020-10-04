@@ -1,6 +1,5 @@
 package com.example.framadate.service;
 
-import com.example.framadate.entity.Comment;
 import com.example.framadate.entity.User;
 import com.example.framadate.mapper.UserMapper;
 import com.example.framadate.model.UserDto;
@@ -47,7 +46,7 @@ public class UserService {
 
     public UserDto updateOne(Long id, UserDto userDto) {
         Optional<User> userOptional = userRepository.findById(id);
-        if (userOptional.isEmpty()) { //Not Found in db
+        if (userOptional.isEmpty()) { //TODO throw not foundException
             return null ;
         }
 
@@ -61,7 +60,7 @@ public class UserService {
 
     public String deleteUser(Long id) {
         Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()) { //Not Found in db
+        if (user.isEmpty()) { //TODO throw not foundException
             return null ;
         }
         userRepository.delete(user.get());
