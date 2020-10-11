@@ -1,6 +1,7 @@
 package com.example.framadate.controller;
 
-import com.example.framadate.model.CommentDto;
+import com.example.framadate.model.commentDtos.CommentDto;
+import com.example.framadate.model.commentDtos.ClientCommentDto;
 import com.example.framadate.service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class CommentController {
 
     private final CommentService commentService;
-
+    
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }
@@ -27,7 +28,7 @@ public class CommentController {
                 .orElseGet( () -> ResponseEntity.notFound().build() );
     }
     @PostMapping(value="/{surveyId}/comments")
-    public ResponseEntity<CommentDto> comment(@PathVariable Long surveyId,@RequestBody CommentDto commentDto){
+    public ResponseEntity<CommentDto> comment(@PathVariable Long surveyId, @RequestBody ClientCommentDto commentDto){
 
         return Optional //TODO catch notFoundException
                 .ofNullable(commentService.comment(surveyId,commentDto))
@@ -35,7 +36,7 @@ public class CommentController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
     @PutMapping(value="/comments/{commentId}")
-    public ResponseEntity<CommentDto> updateComment(@PathVariable Long commentId,@RequestBody CommentDto commentDto){
+    public ResponseEntity<CommentDto> updateComment(@PathVariable Long commentId,@RequestBody ClientCommentDto commentDto){
         return Optional //TODO catch notFoundException
                 .ofNullable(commentService.updateComment(commentDto,commentId))
                 .map(comment ->ResponseEntity.ok().body(comment) )
