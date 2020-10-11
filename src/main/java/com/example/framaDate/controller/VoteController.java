@@ -1,6 +1,7 @@
 package com.example.framadate.controller;
 
-import com.example.framadate.model.VoteDto;
+import com.example.framadate.model.voteDtos.ClientVoteDto;
+import com.example.framadate.model.voteDtos.VoteDto;
 import com.example.framadate.service.VoteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class VoteController {
     }
 
     @PostMapping(value="/{surveyId}/votes")
-    public ResponseEntity<VoteDto> vote(@PathVariable Long surveyId, @RequestBody VoteDto voteDto) {
+    public ResponseEntity<VoteDto> vote(@PathVariable Long surveyId, @RequestBody ClientVoteDto voteDto) {
         return Optional //TODO catch the notfoundException
                 .ofNullable(voteService.vote(surveyId,voteDto))
                 .map(createdVote ->ResponseEntity.ok().body(createdVote) )

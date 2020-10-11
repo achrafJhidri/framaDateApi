@@ -1,4 +1,4 @@
-package com.example.framadate.model;
+package com.example.framadate.model.voteDtos;
 
 import com.example.framadate.entity.Availability;
 import lombok.AllArgsConstructor;
@@ -12,21 +12,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VoteDto {
-    Date votingDate; // the date in which the user voted
+    Date votingDate;
     Date lastUpdate;
     String comment;
     Availability availability;
     VoteIdDto voteIdDto;
-    public Long getUserId() {
-        return voteIdDto.getUserId();
-    }
-    public Date getDateId() {
-        return voteIdDto.getDateId();
-    }
-
-    public Long getSurveyId(){
-        return voteIdDto.getSurveyId();
-    }
-
-
 }

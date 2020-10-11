@@ -1,7 +1,9 @@
 package com.example.framadate.mapper;
 
 import com.example.framadate.entity.Vote;
-import com.example.framadate.model.VoteDto;
+import com.example.framadate.entity.VoteId;
+import com.example.framadate.model.voteDtos.ClientVoteDto;
+import com.example.framadate.model.voteDtos.VoteDto;
 import org.springframework.stereotype.Component;
 
 
@@ -24,11 +26,16 @@ public class VoteMapper {
                 .build();
     }
 
-    public Vote toEntity(VoteDto voteDto) {
+    public Vote toEntity(ClientVoteDto voteDto) {
+        if(voteDto.getDateId() == null || voteDto.getUserId() == null || voteDto.getAvailability() == null)
+            throw new IllegalArgumentException("null fields");
+
+
+
         return Vote.builder()
                 .availability(voteDto.getAvailability())
                 .comment(voteDto.getComment())
-                .voteId(voteIdMapper.toEntity(voteDto.getVoteIdDto()))
+                .voteId(VoteId.builder().build())
                 .build();
     }
 }
