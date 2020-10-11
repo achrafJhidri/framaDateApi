@@ -1,21 +1,13 @@
 package com.example.framadate.service;
 
 
-import com.example.framadate.entity.Comment;
 import com.example.framadate.entity.Survey;
-import com.example.framadate.entity.User;
 
-import com.example.framadate.entity.Vote;
 import com.example.framadate.mapper.SurveyMapper;
-import com.example.framadate.model.CommentDto;
-import com.example.framadate.model.SurveyDto;
+import com.example.framadate.model.surveyDtos.CreationSurveyDto;
+import com.example.framadate.model.surveyDtos.SurveyDto;
 
-import com.example.framadate.model.VoteDto;
 import com.example.framadate.repository.SurveyRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.val;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -26,7 +18,6 @@ public class SurveyService {
 
     private final SurveyRepository surveyRepository;
     private final SurveyMapper surveyMapper;
-
 
     public SurveyService(SurveyRepository surveyRepository, SurveyMapper surveyMapper) {
         this.surveyRepository = surveyRepository;
@@ -42,18 +33,17 @@ public class SurveyService {
         Optional<Survey> survey = surveyRepository.findById(id) ;
         return survey.map(surveyMapper::toDto).orElse(null);
     }
-    public SurveyDto createSurvey(SurveyDto surveyDto) {
-        Survey survey = new Survey();
-        surveyMapper.toEntity(survey,surveyDto);
+    public SurveyDto createSurvey(CreationSurveyDto surveyDto) {
+        Survey survey = surveyMapper.toEntity(surveyDto);
+        survey.setClosed(false); //a new survey is not closed
         survey = surveyRepository.saveAndFlush(survey);//will generate a new id
-        surveyDto.setId(survey.getId());
 
-       return surveyDto;
+        return surveyMapper.toDto(survey);
     }
     public SurveyDto updateSurvey(Long id, SurveyDto surveyDto) {
         Optional<Survey> surveyOptional = surveyRepository.findById(id);
         if (surveyOptional.isEmpty()) { //Not Found in db
-          return null ;
+          return null ;//TODO throw exception Here
         }
         Survey survey  = surveyOptional.get(); // this isn't redundant
                                                // it's useful when you want to update juste one field

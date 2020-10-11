@@ -1,6 +1,7 @@
 package com.example.framadate.controller;
 
-import com.example.framadate.model.SurveyDto;
+import com.example.framadate.model.surveyDtos.CreationSurveyDto;
+import com.example.framadate.model.surveyDtos.SurveyDto;
 import com.example.framadate.service.SurveyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class SurveyController {
         return  ResponseEntity.ok().body( surveyService.findAllSurveys());
     }
     @PostMapping(value="/")
-    public ResponseEntity<SurveyDto> addSurvey(@RequestBody SurveyDto surveyDto ){
+    public ResponseEntity<SurveyDto> addSurvey(@RequestBody CreationSurveyDto surveyDto ){
         SurveyDto survey = surveyService.createSurvey(surveyDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(survey);
     }

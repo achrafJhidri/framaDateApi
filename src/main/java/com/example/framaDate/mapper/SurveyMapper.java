@@ -2,7 +2,9 @@ package com.example.framadate.mapper;
 
 
 import com.example.framadate.entity.Survey;
-import com.example.framadate.model.SurveyDto;
+import com.example.framadate.entity.User;
+import com.example.framadate.model.surveyDtos.CreationSurveyDto;
+import com.example.framadate.model.surveyDtos.SurveyDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,5 +32,18 @@ public class SurveyMapper {
 
         if(surveyDto.getLimitDate() != null)
             survey.setLimitDate(surveyDto.getLimitDate());
+    }
+
+    public Survey toEntity(CreationSurveyDto surveyDto){
+        if(UserMapper.isNullOrEmpty(surveyDto.getName())
+                || UserMapper.isNullOrEmpty(surveyDto.getDescription())
+                || surveyDto.getLimitDate() == null )
+            throw new IllegalArgumentException("empty fields in surveyDto");
+
+        return Survey.builder()
+                .name(surveyDto.getName())
+                .limitDate(surveyDto.getLimitDate())
+                .description(surveyDto.getDescription())
+                .build();
     }
 }
