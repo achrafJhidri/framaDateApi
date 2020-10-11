@@ -1,6 +1,8 @@
 package com.example.framadate.controller;
 
-import com.example.framadate.model.UserDto;
+import com.example.framadate.model.userDtos.PostUserDto;
+import com.example.framadate.model.userDtos.PutUserDto;
+import com.example.framadate.model.userDtos.UserDto;
 import com.example.framadate.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +25,21 @@ public class UserController {
         return  userService.findAllDtos();
     }
     @GetMapping(value="/{id}")
-    public UserDto findOne(@PathVariable Long id){
-        return userService.findUserDtoById(id);
+    public ResponseEntity<UserDto> findOne(@PathVariable Long id){
+        return Optional
+                .ofNullable(userService.findUserDtoById(id))
+                .map(user -> ResponseEntity.ok().body(user))
+                .orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
     @PostMapping(value="/")
-    public UserDto create(@RequestBody UserDto  user){
-        return userService.save(user);
+    public ResponseEntity<UserDto> create(@RequestBody PostUserDto user){
+        return  Optional
+                .ofNullable(userService.save(user))
+                .map(userDto -> ResponseEntity.ok().body(userDto))
+                .orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
     @PutMapping(value="/{id}")
-    public ResponseEntity<UserDto> update(@PathVariable Long id,@RequestBody UserDto user){
+    public ResponseEntity<UserDto> update(@PathVariable Long id,@RequestBody PutUserDto user){
         return Optional
                 .ofNullable( userService.updateOne(id,user) )
                 .map( surveyDtoUpdated -> ResponseEntity.ok().body(surveyDtoUpdated) ) //200 OK

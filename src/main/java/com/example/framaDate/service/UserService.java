@@ -2,7 +2,9 @@ package com.example.framadate.service;
 
 import com.example.framadate.entity.User;
 import com.example.framadate.mapper.UserMapper;
-import com.example.framadate.model.UserDto;
+import com.example.framadate.model.userDtos.PostUserDto;
+import com.example.framadate.model.userDtos.PutUserDto;
+import com.example.framadate.model.userDtos.UserDto;
 import com.example.framadate.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -35,16 +37,13 @@ public class UserService {
         return users.stream().map(userMapper::toDto).collect(Collectors.toList());
     }
 
-    public UserDto save(UserDto userDto) {
-        User userEntity = new User();
-        userMapper.toEntity(userEntity,userDto);
+    public UserDto save(PostUserDto userDto) {
+        User userEntity = userMapper.toEntity(userDto);
         userEntity = userRepository.saveAndFlush(userEntity);
-        userDto.setId(userEntity.getId());
-        return userDto;
-
+        return userMapper.toDto(userEntity);
     }
 
-    public UserDto updateOne(Long id, UserDto userDto) {
+    public UserDto updateOne(Long id, PutUserDto userDto) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) { //TODO throw not foundException
             return null ;
@@ -53,7 +52,7 @@ public class UserService {
         User user = userOptional.get();
 
         userMapper.toEntity(user,userDto);
-        userRepository.saveAndFlush(user);
+        user = userRepository.saveAndFlush(user);
         return userMapper.toDto(user);
 
     }
