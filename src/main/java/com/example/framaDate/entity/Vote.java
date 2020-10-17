@@ -20,7 +20,6 @@ public class Vote {
 
     String comment;
 
-    @Enumerated(EnumType.STRING)
     Availability availability;
 
     java.util.Date votingDate;
