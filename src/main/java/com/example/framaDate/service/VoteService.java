@@ -80,6 +80,11 @@ public class VoteService {
         if (surveyOptional.isEmpty()) { //Not Found in db
             return null ; //TODO throw notFoundException
         }
+        if ( surveyOptional.get().getLimitDate().compareTo(new Date()) < 0 )
+            throw new IllegalArgumentException("this survey's limit date for voting is reached");
+
+        if ( surveyOptional.get().getClosed())
+            throw new IllegalArgumentException("voting is closed for this survey");
 
         val user = userRepository.findById(voteDto.getUserId());
         if (user.isEmpty())
