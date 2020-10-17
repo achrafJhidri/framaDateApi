@@ -45,8 +45,8 @@ public class DateService {
     public List<java.util.Date> addDates(Long id, Set<java.util.Date> dates) {
         Optional<Survey> survey = surveyRepository.findById(id) ;
         if (survey.isPresent()) {
-
-            Set<com.example.framadate.entity.Date> dateEntities =  this.getOrCreateDates(dates);
+            var datesFiltrated = dates.stream().filter(date -> date.compareTo(new java.util.Date()) > 0).collect(Collectors.toSet());
+            Set<com.example.framadate.entity.Date> dateEntities =  this.getOrCreateDates(datesFiltrated);
             survey.get().addDates(dateEntities);
 
             surveyRepository.saveAndFlush(survey.get());

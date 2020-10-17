@@ -36,6 +36,10 @@ public class SurveyService {
     public SurveyDto createSurvey(CreationSurveyDto surveyDto) {
         Survey survey = surveyMapper.toEntity(surveyDto);
         survey.setClosed(false); //a new survey is not closed
+
+        if (survey.getLimitDate().compareTo(new Date()) < 0 )
+            throw new IllegalArgumentException("limit date is already expired");
+
         survey = surveyRepository.saveAndFlush(survey);//will generate a new id
 
         return surveyMapper.toDto(survey);
