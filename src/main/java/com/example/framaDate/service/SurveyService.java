@@ -5,6 +5,7 @@ import com.example.framadate.entity.Survey;
 
 import com.example.framadate.mapper.SurveyMapper;
 import com.example.framadate.model.surveyDtos.CreationSurveyDto;
+import com.example.framadate.model.surveyDtos.PutSurveyDto;
 import com.example.framadate.model.surveyDtos.SurveyDto;
 
 import com.example.framadate.repository.SurveyRepository;
@@ -37,14 +38,12 @@ public class SurveyService {
         Survey survey = surveyMapper.toEntity(surveyDto);
         survey.setClosed(false); //a new survey is not closed
 
-        if (survey.getLimitDate().compareTo(new Date()) < 0 )
-            throw new IllegalArgumentException("limit date is already expired");
 
         survey = surveyRepository.saveAndFlush(survey);//will generate a new id
 
         return surveyMapper.toDto(survey);
     }
-    public SurveyDto updateSurvey(Long id, SurveyDto surveyDto) {
+    public SurveyDto updateSurvey(Long id, PutSurveyDto surveyDto) {
         Optional<Survey> surveyOptional = surveyRepository.findById(id);
         if (surveyOptional.isEmpty()) { //Not Found in db
           return null ;//TODO throw exception Here
