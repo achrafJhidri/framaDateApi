@@ -20,7 +20,7 @@ public class VoteController {
     }
 
     @PostMapping(value="/{surveyId}/votes")
-    public ResponseEntity<VoteDto> vote(@PathVariable Long surveyId, @RequestBody ClientVoteDto voteDto) {
+    public ResponseEntity<VoteDto> vote(@PathVariable Long surveyId,@Valid @RequestBody PostVoteDto voteDto) {
         return Optional //TODO catch the notfoundException
                 .ofNullable(voteService.vote(surveyId,voteDto))
                 .map(createdVote ->ResponseEntity.ok().body(createdVote) )
