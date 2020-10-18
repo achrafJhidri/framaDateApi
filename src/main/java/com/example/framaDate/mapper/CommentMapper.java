@@ -19,19 +19,17 @@ public class CommentMapper {
                         .userId(comment.getUser().getId())
                         .build();
     }
-    public Comment toEntity(ClientCommentDto commentDto){//TODO custom exceptions
-        if (UserMapper.isNullOrEmpty(commentDto.getComment()) || commentDto.getUserId() == null)
-            throw new IllegalArgumentException("empty or null parametters");
+    public Comment toEntity(ClientCommentDto commentDto){
         return Comment.builder()
-                .comment(commentDto.getComment())
-                .lastUpdate(new Date())
-                .creationDate(new Date())
+                .comment(commentDto.getComment().trim())
+                .lastUpdate(new Date()) //TODO move to business logic
+                .creationDate(new Date()) //TODO move to business logic
                 .build();
     }
     public void toEntity(Comment comment, ClientCommentDto commentDto){//TODO custom exceptions
         if (UserMapper.isNullOrEmpty(commentDto.getComment()))
             throw new IllegalArgumentException("empty or null parametters");
         comment.setComment(commentDto.getComment());
-        comment.setLastUpdate(new Date());
+        comment.setLastUpdate(new Date()); //TODO move to business logic
     }
 }

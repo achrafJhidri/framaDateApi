@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class CommentController {
                 .orElseGet( () -> ResponseEntity.notFound().build() );
     }
     @PostMapping(value="/{surveyId}/comments")
-    public ResponseEntity<CommentDto> comment(@PathVariable Long surveyId, @RequestBody ClientCommentDto commentDto){
+    public ResponseEntity<CommentDto> comment(@PathVariable Long surveyId,@Valid @RequestBody ClientCommentDto commentDto){
 
         return Optional //TODO catch notFoundException
                 .ofNullable(commentService.comment(surveyId,commentDto))
@@ -36,7 +37,7 @@ public class CommentController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
     @PutMapping(value="/comments/{commentId}")
-    public ResponseEntity<CommentDto> updateComment(@PathVariable Long commentId,@RequestBody ClientCommentDto commentDto){
+    public ResponseEntity<CommentDto> updateComment(@PathVariable Long commentId,@Valid @RequestBody ClientCommentDto commentDto){
         return Optional //TODO catch notFoundException
                 .ofNullable(commentService.updateComment(commentDto,commentId))
                 .map(comment ->ResponseEntity.ok().body(comment) )
