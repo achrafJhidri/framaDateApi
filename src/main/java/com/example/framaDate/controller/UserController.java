@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,14 +33,14 @@ public class UserController {
                 .orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
     @PostMapping(value="/")
-    public ResponseEntity<UserDto> create(@RequestBody PostUserDto user){
+    public ResponseEntity<UserDto> create(@Valid @RequestBody PostUserDto user){
         return  Optional
                 .ofNullable(userService.save(user))
                 .map(userDto -> ResponseEntity.ok().body(userDto))
                 .orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
     @PutMapping(value="/{id}")
-    public ResponseEntity<UserDto> update(@PathVariable Long id,@RequestBody PutUserDto user){
+    public ResponseEntity<UserDto> update(@PathVariable Long id,@Valid @RequestBody PutUserDto user){
         return Optional
                 .ofNullable( userService.updateOne(id,user) )
                 .map( surveyDtoUpdated -> ResponseEntity.ok().body(surveyDtoUpdated) ) //200 OK

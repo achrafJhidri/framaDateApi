@@ -17,16 +17,14 @@ public class UserMapper {
     }
 
     public void toEntity(User user, PutUserDto userDto) {
-        if ( !isNullOrEmpty(userDto.getName()))
+        if ( userDto.getName()!=null)
             user.setName(userDto.getName() );
 
-        if ( !isNullOrEmpty(userDto.getEmail()))
+        if ( userDto.getEmail()!=null)
             user.setEmail(userDto.getEmail());
     }
 
     public User toEntity(PostUserDto userDto) {
-        if ( isNullOrEmpty(userDto.getName() ) || isNullOrEmpty(userDto.getEmail()) )
-            throw new IllegalArgumentException("empty or null parametters");
         return User.builder()
                 .name(userDto.getName())
                 .email(userDto.getEmail())
