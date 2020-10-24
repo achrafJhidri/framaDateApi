@@ -21,7 +21,7 @@ public class SurveyMapper {
     }
 
 
-    public void toEntity(      Survey survey, PutSurveyDto surveyDto){
+    public void toEntity(Survey survey, PutSurveyDto surveyDto){
         if ( surveyDto.getName() != null)
             survey.setName(surveyDto.getName() );
 

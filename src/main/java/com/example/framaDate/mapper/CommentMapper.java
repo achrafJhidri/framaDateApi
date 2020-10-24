@@ -5,7 +5,6 @@ import com.example.framadate.model.commentDtos.CommentDto;
 import com.example.framadate.model.commentDtos.ClientCommentDto;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 
 
 @Component
@@ -22,14 +21,9 @@ public class CommentMapper {
     public Comment toEntity(ClientCommentDto commentDto){
         return Comment.builder()
                 .comment(commentDto.getComment().trim())
-                .lastUpdate(new Date()) //TODO move to business logic
-                .creationDate(new Date()) //TODO move to business logic
                 .build();
     }
-    public void toEntity(Comment comment, ClientCommentDto commentDto){//TODO custom exceptions
-        if (UserMapper.isNullOrEmpty(commentDto.getComment()))
-            throw new IllegalArgumentException("empty or null parametters");
+    public void toEntity(Comment comment, ClientCommentDto commentDto){
         comment.setComment(commentDto.getComment());
-        comment.setLastUpdate(new Date()); //TODO move to business logic
     }
 }
