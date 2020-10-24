@@ -39,7 +39,7 @@ public class SurveyService {
         survey.setClosed(false); //a new survey is not closed
 
 
-        survey = surveyRepository.saveAndFlush(survey);//will generate a new id
+        survey = surveyRepository.saveAndFlush(survey);
 
         return surveyMapper.toDto(survey);
     }

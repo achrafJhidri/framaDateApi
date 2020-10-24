@@ -52,7 +52,7 @@ public class VoteService {
         if (vote.isPresent())
             throw new IllegalArgumentException("you've already voted, do a put instead of post to update your vote");
 
-        Vote voteEntity=voteMapper.toEntity(voteDto);
+        Vote voteEntity = voteMapper.toEntity(voteDto);
         voteEntity.setVotingDate(new Date());
         voteEntity.setDate(date);
         voteEntity.setUser(user);
@@ -60,9 +60,9 @@ public class VoteService {
         voteEntity.setLastUpdate(voteEntity.getVotingDate());
 
         val result = voteRepository.save(voteEntity);
-        return voteMapper.toDto(result) ;
+        return voteMapper.toDto(result);
     }
-    public VoteDto vote(Long surveyId, PostVoteDto voteDto)  {
+    public VoteDto vote(Long surveyId, PostVoteDto voteDto) {
 
         val survey = checkSurvey(surveyId);
         val user = checkUser(voteDto.getUserId());
@@ -72,25 +72,25 @@ public class VoteService {
         return this.saveVote(user
                 ,dateRepository.findById(voteDto.getDateId()).get() /*no need to check isPresent cz it wouldn't be inside
                                                                      the dates of the survey if it's not already in the db*/
-                ,survey,
-                voteDto);
+                ,survey
+                ,voteDto);
     }
 
     public VoteDto updateVote(Long surveyId, PutVoteDto voteDto) {
-            VoteId id = VoteId.builder()
-                    .dateId(voteDto.getDateId())
-                    .surveyId(surveyId)
-                    .userId(voteDto.getUserId())
-                    .build();
+        VoteId id = VoteId.builder()
+                .dateId(voteDto.getDateId())
+                .surveyId(surveyId)
+                .userId(voteDto.getUserId())
+                .build();
 
-            val vote = voteRepository.findById(id);
+        val vote = voteRepository.findById(id);
 
-            if (vote.isEmpty())
-                throw new IllegalArgumentException("not found Vote to update");
-            voteMapper.toEntity(vote.get(), voteDto);
-            vote.get().setLastUpdate(new Date());
-            val result = voteRepository.save(vote.get());
-            return voteMapper.toDto(result);
+        if (vote.isEmpty())
+            throw new IllegalArgumentException("not found Vote to update");
+        voteMapper.toEntity(vote.get(), voteDto);
+        vote.get().setLastUpdate(new Date());
+        val result = voteRepository.save(vote.get());
+        return voteMapper.toDto(result);
     }
     public List<VoteDto> findAll(Long surveyId) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
@@ -105,10 +105,10 @@ public class VoteService {
         if (surveyOptional.isEmpty()) { //Not Found in db
             throw new IllegalArgumentException("survey deosn't exist");
         }
-        if ( surveyOptional.get().getLimitDate().compareTo(new Date()) < 0 )
+        if (surveyOptional.get().getLimitDate().compareTo(new Date()) < 0)
             throw new IllegalArgumentException("this survey's limit date for voting is reached");
 
-        if ( surveyOptional.get().getClosed())
+        if (surveyOptional.get().getClosed())
             throw new IllegalArgumentException("voting is closed for this survey");
         return surveyOptional.get();
     }

@@ -17,7 +17,7 @@ public interface VoteRepository extends JpaRepository<Vote, VoteId> {
                    "group by V.date_id " +
                    "order by count(v.*) desc "
             , nativeQuery = true)
-    Set<IResult> countVotesForSomeAvailability(Long surveyId,String availability);
+    Set<IResult> countVotesForSomeAvailability(Long surveyId,char availability);
 
     @Query(value = "select count(v.*)  as totalVotes,v.date_id as VotingDate "+
                    "from vote as v " +

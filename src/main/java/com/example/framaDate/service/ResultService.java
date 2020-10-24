@@ -29,7 +29,7 @@ public class ResultService {
 
         var result = new HashMap<String,IResult>();
 
-        var availableOnlyResult = voteRepository.countVotesForSomeAvailability(surveyId,"A");
+        var availableOnlyResult = voteRepository.countVotesForSomeAvailability(surveyId,'A');
         var availableOrMaybeResult = voteRepository.countMaybeOrAvailableVotes(surveyId);
 
         if ( availableOnlyResult.isEmpty() )

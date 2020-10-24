@@ -23,21 +23,17 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public UserDto findUserDtoById(Long id){
-       User user =   findUserById(id) ;
-       return  user != null ? userMapper.toDto(user) : null;
-    }
-    public User findUserById(Long id){
+    public UserDto findUserById(Long id){
         Optional<User> user = userRepository.findById(id);
-        return user.orElse(null);
+        return user.map(userMapper::toDto).orElse(null);
     }
 
-    public List<UserDto> findAllDtos() {
+    public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream().map(userMapper::toDto).collect(Collectors.toList());
     }
 
-    public UserDto save(PostUserDto userDto) {
+    public UserDto create(PostUserDto userDto) {
         User userEntity = userMapper.toEntity(userDto);
         userEntity = userRepository.saveAndFlush(userEntity);
         return userMapper.toDto(userEntity);

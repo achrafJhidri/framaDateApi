@@ -42,18 +42,27 @@ public class DateService {
         return survey.map(value -> value.getDates()
                 .stream().map(com.example.framadate.entity.Date::getDate).collect(Collectors.toList())).orElse(new ArrayList<>());
     }
-    public List<java.util.Date> addDates(Long id, Set<java.util.Date> dates) {
-        Optional<Survey> survey = surveyRepository.findById(id) ;
-        if (survey.isPresent()) {
-            var datesFiltrated = dates.stream().filter(date -> date.compareTo(new java.util.Date()) > 0).collect(Collectors.toSet());
-            Set<com.example.framadate.entity.Date> dateEntities =  this.getOrCreateDates(datesFiltrated);
-            survey.get().addDates(dateEntities);
+    public List<java.util.Date> addDates(Long surveyId, Set<java.util.Date> dates) {
+        Optional<Survey> survey = surveyRepository.findById(surveyId) ;
 
-            surveyRepository.saveAndFlush(survey.get());
-
-            return this.toDtos(dateEntities);
+        if (survey.isEmpty()) {
+            throw new IllegalArgumentException("survey "+surveyId+" not found");
         }
-        return new ArrayList<>();
+
+        var datesFiltrated = filterDates(dates);
+        Set<com.example.framadate.entity.Date> dateEntities =  this.getOrCreateDates(datesFiltrated);
+        survey.get().addDates(dateEntities);
+        surveyRepository.saveAndFlush(survey.get());
+
+        return this.toDtos(dateEntities);
+    }
+
+    private Set<java.util.Date> filterDates(Set<java.util.Date> dates) {
+        return dates.stream().filter(date -> {
+        if( date != null)
+            return date.compareTo(new java.util.Date()) > 0;
+        return false;
+        }).collect(Collectors.toSet());
     }
     public Survey deleteDate(Long surveyId, java.util.Date dateId) {
         Optional<Survey> survey = surveyRepository.findById(surveyId) ;
