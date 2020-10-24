@@ -6,10 +6,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-public class FramaDateApplication {
+public class FramadateApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FramaDateApplication.class, args);
+        SpringApplication.run(FramadateApplication.class, args);
     }
 
 }
