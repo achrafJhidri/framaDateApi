@@ -62,8 +62,9 @@ public class CommentService {
         }
 
         commentMapper.toEntity(comment.get(),commentDto);
-        if (!commentDto.getUserId().equals(comment.get().getUser().getId())) //TODO extract that a.b.c.d.e
-                throw new IllegalArgumentException("you're not supposed to edit others comment");//TODO custom exceptions
+        comment.get().setLastUpdate(new Date());
+        if (!commentDto.getUserId().equals(comment.get().getUserId()))
+                throw new IllegalArgumentException("you're not supposed to edit others comment");
 
         return commentMapper.toDto(commentRepository.saveAndFlush(comment.get()));
     }

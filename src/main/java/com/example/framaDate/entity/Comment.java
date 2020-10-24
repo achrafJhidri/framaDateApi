@@ -43,4 +43,7 @@ public class Comment {
     public String toString() {
         return String.join(",",comment,creationDate.toString(),lastUpdate.toString(),user.toString());
     }
+    public Long getUserId(){
+        return  user.getId();
+    }
 }
