@@ -41,12 +41,12 @@ public class CommentService {
     public CommentDto comment(Long surveyId, ClientCommentDto commentDto) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
         if (survey.isEmpty()) { //Not Found in db
-            return null ;//TODO throw notfoundexception
+            throw new IllegalArgumentException("survey "+surveyId+" not found ");
         }
 
         Optional<User> user = userRepository.findById(commentDto.getUserId());
         if (user.isEmpty())
-            return null ;//TODO throw notfoundexception
+            throw new IllegalArgumentException("user "+commentDto.getUserId()+" not found ");
 
         Comment commentEntity = commentMapper.toEntity(commentDto);
         commentEntity.setSurvey(survey.get());
@@ -60,8 +60,8 @@ public class CommentService {
 
     public CommentDto updateComment(ClientCommentDto commentDto, Long commentId) {
         Optional<Comment> comment = commentRepository.findById(commentId);
-        if (comment.isEmpty()) { //Not Found in db
-            return null ;//TODO throw notfoundexception
+        if (comment.isEmpty()) {
+            throw new IllegalArgumentException("comment "+commentId+" not found ");
         }
 
         commentMapper.toEntity(comment.get(),commentDto);
@@ -75,7 +75,7 @@ public class CommentService {
     public String deleteComment(Long commentId) {
         Optional<Comment> comment = commentRepository.findById(commentId);
         if (comment.isEmpty()) { //Not Found in db
-            return null ;//TODO throw notfoundexception
+            throw new IllegalArgumentException("comment "+commentId+" not found ");
         }
         commentRepository.delete(comment.get());
         return comment.get().getComment();

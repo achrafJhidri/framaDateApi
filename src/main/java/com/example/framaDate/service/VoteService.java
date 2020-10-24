@@ -93,8 +93,10 @@ public class VoteService {
             return voteMapper.toDto(result);
     }
     public List<VoteDto> findAll(Long surveyId) {
-        Optional<Survey> survey = surveyRepository.findById(surveyId) ;
-        return survey.map(value -> value.getVotes() //TODO throw notFoundException
+        Optional<Survey> survey = surveyRepository.findById(surveyId);
+        if ( survey.isEmpty())
+            throw new IllegalArgumentException("survey "+surveyId+" not found");
+        return survey.map(value -> value.getVotes()
                 .stream().map(voteMapper::toDto).collect(Collectors.toList())).orElse(null);
     }
 
@@ -113,7 +115,7 @@ public class VoteService {
     private User checkUser(Long userId) {
         val user = userRepository.findById(userId);
         if (user.isEmpty())
-            throw new IllegalArgumentException("the user doesn't exist");
+            throw new IllegalArgumentException("the user "+userId+" doesn't exist");
 
         return user.get();
     }

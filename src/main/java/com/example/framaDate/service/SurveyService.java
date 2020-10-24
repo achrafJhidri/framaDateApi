@@ -46,7 +46,7 @@ public class SurveyService {
     public SurveyDto updateSurvey(Long id, PutSurveyDto surveyDto) {
         Optional<Survey> surveyOptional = surveyRepository.findById(id);
         if (surveyOptional.isEmpty()) { //Not Found in db
-          return null ;//TODO throw exception Here
+          throw new IllegalArgumentException("survey " + id + " not found");
         }
         Survey survey  = surveyOptional.get(); // this isn't redundant
                                                // it's useful when you want to update juste one field

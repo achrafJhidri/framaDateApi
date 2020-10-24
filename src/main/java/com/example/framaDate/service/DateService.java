@@ -57,14 +57,15 @@ public class DateService {
     }
     public Survey deleteDate(Long surveyId, java.util.Date dateId) {
         Optional<Survey> survey = surveyRepository.findById(surveyId) ;
-        if (survey.isPresent()) {
-            boolean retrieved = survey.get().getDates().removeIf(date -> date.getDate().compareTo(dateId)==0);
-            if (retrieved ) {
-                surveyRepository.saveAndFlush(survey.get());
-                return survey.get();
-            }
+        if (survey.isEmpty()) {
+            throw new IllegalArgumentException("survey "+surveyId+" not found");
         }
-        return  null ;
+        boolean retrieved = survey.get().getDates().removeIf(date -> date.getDate().compareTo(dateId)==0);
+        if (retrieved ) {
+            surveyRepository.saveAndFlush(survey.get());
+            return survey.get();
+        }
+        throw new IllegalArgumentException("date "+dateId+" not found in survey "+surveyId);
     }
 
 }

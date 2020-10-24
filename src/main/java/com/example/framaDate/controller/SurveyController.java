@@ -3,7 +3,6 @@ package com.example.framadate.controller;
 import com.example.framadate.model.surveyDtos.CreationSurveyDto;
 import com.example.framadate.model.surveyDtos.PutSurveyDto;
 import com.example.framadate.model.surveyDtos.SurveyDto;
-import com.example.framadate.model.userDtos.PutUserDto;
 import com.example.framadate.service.SurveyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

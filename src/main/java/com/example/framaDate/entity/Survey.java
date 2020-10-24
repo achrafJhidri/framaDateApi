@@ -49,9 +49,8 @@ public class Survey {
     private Boolean closed;
 
 
-    public Set<Date> addDates(Set<Date> dates){
+    public void addDates(Set<Date> dates){
         this.dates.addAll(dates);
-        return this.dates;
     }
 
     public boolean equals(final Object o) {
