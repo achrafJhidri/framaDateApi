@@ -14,7 +14,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="comment")
+@Table(name = "comment")
 public class Comment {
     @Id
     @GeneratedValue
@@ -25,12 +25,13 @@ public class Comment {
     private Date lastUpdate;
 
     @ManyToOne
-    @JoinColumn(name="user_id",nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="survey_id",nullable = false)
+    @JoinColumn(name = "survey_id", nullable = false)
     private Survey survey;
+
     public boolean equals(final Object o) {
         if (!(o instanceof Comment)) return false;
         return id.equals(((Comment) o).id);
@@ -41,9 +42,10 @@ public class Comment {
     }
 
     public String toString() {
-        return String.join(",",comment,creationDate.toString(),lastUpdate.toString(),user.toString());
+        return String.join(",", comment, creationDate.toString(), lastUpdate.toString(), user.toString());
     }
-    public Long getUserId(){
-        return  user.getId();
+
+    public Long getUserId() {
+        return user.getId();
     }
 }

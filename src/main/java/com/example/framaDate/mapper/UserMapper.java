@@ -8,8 +8,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
+    public static boolean isNullOrEmpty(String s) {
+        return s == null || s.trim().isEmpty();
+    }
+
     public UserDto toDto(User user) {
-       return UserDto.builder()
+        return UserDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
@@ -17,10 +21,10 @@ public class UserMapper {
     }
 
     public void toEntity(User user, PutUserDto userDto) {
-        if ( userDto.getName()!=null)
-            user.setName(userDto.getName() );
+        if (userDto.getName() != null)
+            user.setName(userDto.getName());
 
-        if ( userDto.getEmail()!=null)
+        if (userDto.getEmail() != null)
             user.setEmail(userDto.getEmail());
     }
 
@@ -29,9 +33,6 @@ public class UserMapper {
                 .name(userDto.getName())
                 .email(userDto.getEmail())
                 .build();
-    }
-    public static boolean isNullOrEmpty(String s){
-        return s == null ||s.trim().isEmpty();
     }
 
 }

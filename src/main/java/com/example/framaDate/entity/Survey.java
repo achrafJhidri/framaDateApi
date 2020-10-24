@@ -8,12 +8,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="survey")
+@Table(name = "survey")
 public class Survey {
 
 
@@ -30,8 +31,8 @@ public class Survey {
     @ManyToMany
     @JoinTable(
             name = "Survey_date",
-            joinColumns = @JoinColumn(name = "survey_id",nullable = false, updatable = false),
-            inverseJoinColumns = @JoinColumn(name = "date_id",nullable = false, updatable = false))
+            joinColumns = @JoinColumn(name = "survey_id", nullable = false, updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "date_id", nullable = false, updatable = false))
     private Set<Date> dates;
 
     @OneToMany(mappedBy = "survey",
@@ -49,7 +50,7 @@ public class Survey {
     private Boolean closed;
 
 
-    public void addDates(Set<Date> dates){
+    public void addDates(Set<Date> dates) {
         this.dates.addAll(dates);
     }
 
@@ -63,7 +64,7 @@ public class Survey {
     }
 
     public String toString() {
-        return String.join(",",name,description,limitDate.toString());
+        return String.join(",", name, description, limitDate.toString());
     }
 
 

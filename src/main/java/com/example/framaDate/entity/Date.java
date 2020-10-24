@@ -9,12 +9,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
+
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="date")
+@Table(name = "date")
 public class Date {
     @Id
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -36,7 +37,7 @@ public class Date {
     public boolean equals(final Object o) {
 
         if (!(o instanceof Date)) return false;
-        return date.equals(((Date ) o).date);
+        return date.equals(((Date) o).date);
     }
 
     public int hashCode() {
@@ -44,6 +45,6 @@ public class Date {
     }
 
     public String toString() {
-        return String.join(",",date.toString());
+        return String.join(",", date.toString());
     }
 }

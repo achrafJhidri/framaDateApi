@@ -2,10 +2,8 @@ package com.example.framadate.mapper;
 
 
 import com.example.framadate.entity.VoteId;
-
 import com.example.framadate.model.voteDtos.VoteIdDto;
 import org.springframework.stereotype.Component;
-
 
 
 @Component

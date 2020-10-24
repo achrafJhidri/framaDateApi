@@ -16,7 +16,7 @@ public class VoteMapper {
         this.voteIdMapper = voteIdMapper;
     }
 
-    public VoteDto toDto(Vote vote){
+    public VoteDto toDto(Vote vote) {
         return VoteDto.builder()
                 .voteIdDto(voteIdMapper.toDto(vote.getVoteId()))
                 .availability(vote.getAvailability())
@@ -33,6 +33,7 @@ public class VoteMapper {
                 .voteId(VoteId.builder().build())
                 .build();
     }
+
     public void toEntity(Vote vote, PutVoteDto voteDto) {
         if (voteDto.getComment() != null)
             vote.setComment(voteDto.getComment());

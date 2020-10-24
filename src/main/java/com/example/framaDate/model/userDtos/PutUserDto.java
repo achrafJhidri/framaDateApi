@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class PutUserDto {
     @Getter
-    @Size(min=2)
+    @Size(min = 2)
     private String name;
     @Getter
     @Email

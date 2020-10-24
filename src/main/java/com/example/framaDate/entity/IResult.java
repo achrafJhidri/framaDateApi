@@ -5,5 +5,6 @@ import java.util.Date;
 
 public interface IResult {
     Long getTotalVotes();
+
     Date getVotingDate();
 }

@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue
@@ -37,7 +37,7 @@ public class User {
 
     public boolean equals(final Object o) {
         if (!(o instanceof User)) return false;
-        return id.equals(((User) o).id );
+        return id.equals(((User) o).id);
     }
 
     public int hashCode() {
@@ -45,6 +45,6 @@ public class User {
     }
 
     public String toString() {
-        return String.join(",", id.toString(),name,email);
+        return String.join(",", id.toString(), name, email);
     }
 }

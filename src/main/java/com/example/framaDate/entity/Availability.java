@@ -5,13 +5,13 @@ public enum Availability {
     NON_AVAILABLE("N"),
     MAYBE("M");
 
-    private String code ;
+    private String code;
 
-    Availability(String code){
-        this.code = code ;
+    Availability(String code) {
+        this.code = code;
     }
 
-    public String getCode(){
+    public String getCode() {
         return this.code;
     }
 }

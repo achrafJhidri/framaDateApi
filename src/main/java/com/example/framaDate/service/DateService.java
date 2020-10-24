@@ -32,25 +32,27 @@ public class DateService {
 
     public Set<Date> getOrCreateDates(Set<java.util.Date> dates) {
         return dates.stream().map(date -> {
-            Optional<Date> optDate = dateRepository.findById(date);
-            return optDate.orElse(dateRepository.saveAndFlush(Date.builder().date(date).build()));}
+                    Optional<Date> optDate = dateRepository.findById(date);
+                    return optDate.orElse(dateRepository.saveAndFlush(Date.builder().date(date).build()));
+                }
         ).collect(Collectors.toSet());
     }
 
-    public List <java.util.Date> getAllDates(Long surveyId) {
-        Optional<Survey> survey = surveyRepository.findById(surveyId) ;
+    public List<java.util.Date> getAllDates(Long surveyId) {
+        Optional<Survey> survey = surveyRepository.findById(surveyId);
         return survey.map(value -> value.getDates()
                 .stream().map(com.example.framadate.entity.Date::getDate).collect(Collectors.toList())).orElse(new ArrayList<>());
     }
+
     public List<java.util.Date> addDates(Long surveyId, Set<java.util.Date> dates) {
-        Optional<Survey> survey = surveyRepository.findById(surveyId) ;
+        Optional<Survey> survey = surveyRepository.findById(surveyId);
 
         if (survey.isEmpty()) {
-            throw new IllegalArgumentException("survey "+surveyId+" not found");
+            throw new IllegalArgumentException("survey " + surveyId + " not found");
         }
 
         var datesFiltrated = filterDates(dates);
-        Set<com.example.framadate.entity.Date> dateEntities =  this.getOrCreateDates(datesFiltrated);
+        Set<com.example.framadate.entity.Date> dateEntities = this.getOrCreateDates(datesFiltrated);
         survey.get().addDates(dateEntities);
         surveyRepository.saveAndFlush(survey.get());
 
@@ -59,22 +61,23 @@ public class DateService {
 
     private Set<java.util.Date> filterDates(Set<java.util.Date> dates) {
         return dates.stream().filter(date -> {
-        if( date != null)
-            return date.compareTo(new java.util.Date()) > 0;
-        return false;
+            if (date != null)
+                return date.compareTo(new java.util.Date()) > 0;
+            return false;
         }).collect(Collectors.toSet());
     }
+
     public Survey deleteDate(Long surveyId, java.util.Date dateId) {
-        Optional<Survey> survey = surveyRepository.findById(surveyId) ;
+        Optional<Survey> survey = surveyRepository.findById(surveyId);
         if (survey.isEmpty()) {
-            throw new IllegalArgumentException("survey "+surveyId+" not found");
+            throw new IllegalArgumentException("survey " + surveyId + " not found");
         }
-        boolean retrieved = survey.get().getDates().removeIf(date -> date.getDate().compareTo(dateId)==0);
-        if (retrieved ) {
+        boolean retrieved = survey.get().getDates().removeIf(date -> date.getDate().compareTo(dateId) == 0);
+        if (retrieved) {
             surveyRepository.saveAndFlush(survey.get());
             return survey.get();
         }
-        throw new IllegalArgumentException("date "+dateId+" not found in survey "+surveyId);
+        throw new IllegalArgumentException("date " + dateId + " not found in survey " + surveyId);
     }
 
 }

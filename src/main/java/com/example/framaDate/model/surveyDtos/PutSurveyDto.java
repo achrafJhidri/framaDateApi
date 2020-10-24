@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Future;
-
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -17,7 +16,7 @@ import java.util.Date;
 public class PutSurveyDto {
     @Size(min = 2)
     String name;
-    @Size(min =5)
+    @Size(min = 5)
     String description;
     @Future(message = "you can't put a limitDate in the past")
     Date limitDate;

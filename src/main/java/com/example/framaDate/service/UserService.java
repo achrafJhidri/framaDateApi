@@ -23,7 +23,7 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public UserDto findUserById(Long id){
+    public UserDto findUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
         return user.map(userMapper::toDto).orElse(null);
     }
@@ -42,12 +42,12 @@ public class UserService {
     public UserDto update(Long userId, PutUserDto userDto) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isEmpty()) {
-            throw new IllegalArgumentException("user "+userId+" not found");
+            throw new IllegalArgumentException("user " + userId + " not found");
         }
 
         User user = userOptional.get();
 
-        userMapper.toEntity(user,userDto);
+        userMapper.toEntity(user, userDto);
         user = userRepository.saveAndFlush(user);
         return userMapper.toDto(user);
 
@@ -56,7 +56,7 @@ public class UserService {
     public String deleteUser(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isEmpty()) {
-            throw new IllegalArgumentException("user "+userId+" not found");
+            throw new IllegalArgumentException("user " + userId + " not found");
         }
         userRepository.delete(user.get());
         return user.get().toString();

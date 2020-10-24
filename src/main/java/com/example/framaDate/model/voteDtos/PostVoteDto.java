@@ -16,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostVoteDto {
-    @Size(min=2)
+    @Size(min = 2)
     String comment;
     @NotNull
     Availability availability;

@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class CreationSurveyDto {
     @Size(min = 2)
     String name;
     @NotBlank(message = "leave a valid description")
-    @Size(min =5)
+    @Size(min = 5)
     String description;
     @NotNull
     @Future(message = "you can't pu a limitDate in the past")

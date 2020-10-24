@@ -22,25 +22,27 @@ public class VoteController {
         this.voteService = voteService;
     }
 
-    @PostMapping(value="/{surveyId}/votes")
-    public ResponseEntity<VoteDto> vote(@PathVariable Long surveyId,@Valid @RequestBody PostVoteDto voteDto) {
+    @PostMapping(value = "/{surveyId}/votes")
+    public ResponseEntity<VoteDto> vote(@PathVariable Long surveyId, @Valid @RequestBody PostVoteDto voteDto) {
         return Optional //TODO catch the notfoundException
-                .ofNullable(voteService.vote(surveyId,voteDto))
-                .map(createdVote ->ResponseEntity.ok().body(createdVote) )
+                .ofNullable(voteService.vote(surveyId, voteDto))
+                .map(createdVote -> ResponseEntity.ok().body(createdVote))
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-    @PutMapping(value="/{surveyId}/votes")
-    public ResponseEntity<VoteDto> vote(@PathVariable Long surveyId,@Valid @RequestBody PutVoteDto voteDto) {
+
+    @PutMapping(value = "/{surveyId}/votes")
+    public ResponseEntity<VoteDto> vote(@PathVariable Long surveyId, @Valid @RequestBody PutVoteDto voteDto) {
         return Optional //TODO catch the notfoundException
-                .ofNullable(voteService.updateVote(surveyId,voteDto))
-                .map(createdVote ->ResponseEntity.ok().body(createdVote) )
+                .ofNullable(voteService.updateVote(surveyId, voteDto))
+                .map(createdVote -> ResponseEntity.ok().body(createdVote))
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-    @GetMapping(value="/{surveyId}/votes")
-    public ResponseEntity<List<VoteDto>> votes(@PathVariable Long surveyId){
+
+    @GetMapping(value = "/{surveyId}/votes")
+    public ResponseEntity<List<VoteDto>> votes(@PathVariable Long surveyId) {
         return Optional //TODO catch the notfoundException
                 .ofNullable(voteService.findAll(surveyId))
-                .map(votes ->ResponseEntity.ok().body(votes) )
+                .map(votes -> ResponseEntity.ok().body(votes))
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 }

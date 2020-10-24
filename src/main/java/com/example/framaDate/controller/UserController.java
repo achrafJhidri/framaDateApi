@@ -21,37 +21,41 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(value="/")
-    public List<UserDto> all(){
-        return  userService.findAllUsers();
+    @GetMapping(value = "/")
+    public List<UserDto> all() {
+        return userService.findAllUsers();
     }
-    @GetMapping(value="/{userId}")
-    public ResponseEntity<UserDto> findOne(@PathVariable Long userId){
+
+    @GetMapping(value = "/{userId}")
+    public ResponseEntity<UserDto> findOne(@PathVariable Long userId) {
         return Optional
                 .ofNullable(userService.findUserById(userId))
                 .map(user -> ResponseEntity.ok().body(user))
-                .orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-    @PostMapping(value="/")
-    public ResponseEntity<UserDto> create(@Valid @RequestBody PostUserDto user){
-        return  Optional
+
+    @PostMapping(value = "/")
+    public ResponseEntity<UserDto> create(@Valid @RequestBody PostUserDto user) {
+        return Optional
                 .ofNullable(userService.create(user))
                 .map(userDto -> ResponseEntity.ok().body(userDto))
-                .orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-    @PutMapping(value="/{userId}")
-    public ResponseEntity<UserDto> update(@PathVariable Long userId,@Valid @RequestBody PutUserDto user){
+
+    @PutMapping(value = "/{userId}")
+    public ResponseEntity<UserDto> update(@PathVariable Long userId, @Valid @RequestBody PutUserDto user) {
         return Optional
-                .ofNullable( userService.update(userId,user) )
-                .map( surveyDtoUpdated -> ResponseEntity.ok().body(surveyDtoUpdated) ) //200 OK
-                .orElseGet( () -> ResponseEntity.notFound().build() );   //404 Not found
+                .ofNullable(userService.update(userId, user))
+                .map(surveyDtoUpdated -> ResponseEntity.ok().body(surveyDtoUpdated)) //200 OK
+                .orElseGet(() -> ResponseEntity.notFound().build());   //404 Not found
     }
-    @DeleteMapping(value="/{userId}")
-    public ResponseEntity<String> delete(@PathVariable Long userId){
+
+    @DeleteMapping(value = "/{userId}")
+    public ResponseEntity<String> delete(@PathVariable Long userId) {
         return Optional
                 .ofNullable(userService.deleteUser(userId))
-                .map(user -> ResponseEntity.ok().body("the user "+user+"  has been deleted"))
-                .orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).body("the userId"+userId+" doesn't match any user"));
+                .map(user -> ResponseEntity.ok().body("the user " + user + "  has been deleted"))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("the userId" + userId + " doesn't match any user"));
     }
 
 }
