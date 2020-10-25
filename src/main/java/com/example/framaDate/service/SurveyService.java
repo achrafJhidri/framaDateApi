@@ -30,9 +30,9 @@ public class SurveyService {
         return surveys.stream().map(surveyMapper::toDto).collect(Collectors.toList());
     }
 
-    public SurveyDto findOneSurvey(Long id) {
-        Optional<Survey> survey = surveyRepository.findById(id);
-        return survey.map(surveyMapper::toDto).orElse(null);
+    public SurveyDto findOneSurvey(Long surveyId) {
+        Optional<Survey> survey = surveyRepository.findById(surveyId);
+        return survey.map(surveyMapper::toDto).orElseThrow(() -> new NotFoundException("survey " + surveyId));
     }
 
     public SurveyDto createSurvey(CreationSurveyDto surveyDto) {
@@ -48,7 +48,7 @@ public class SurveyService {
     public SurveyDto updateSurvey(Long id, PutSurveyDto surveyDto) {
         Optional<Survey> surveyOptional = surveyRepository.findById(id);
         if (surveyOptional.isEmpty()) { //Not Found in db
-            throw new IllegalArgumentException("survey " + id + " not found");
+            throw new NotFoundException("survey " + surveyId);
         }
         Survey survey = surveyOptional.get(); // this isn't redundant
         // it's useful when you want to update juste one field

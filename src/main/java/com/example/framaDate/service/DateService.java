@@ -41,14 +41,16 @@ public class DateService {
     public List<java.util.Date> getAllDates(Long surveyId) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
         return survey.map(value -> value.getDates()
-                .stream().map(com.example.framadate.entity.Date::getDate).collect(Collectors.toList())).orElse(new ArrayList<>());
+                .stream().map(com.example.framadate.entity.Date::getDate)
+                .collect(Collectors.toList()))
+                .orElseThrow(() -> new NotFoundException("survey " + surveyId));
     }
 
     public List<java.util.Date> addDates(Long surveyId, Set<java.util.Date> dates) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
 
         if (survey.isEmpty()) {
-            throw new IllegalArgumentException("survey " + surveyId + " not found");
+            throw new NotFoundException("survey " + surveyId);
         }
 
         var datesFiltrated = filterDates(dates);
@@ -70,14 +72,14 @@ public class DateService {
     public Survey deleteDate(Long surveyId, java.util.Date dateId) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
         if (survey.isEmpty()) {
-            throw new IllegalArgumentException("survey " + surveyId + " not found");
+            throw new NotFoundException("survey " + surveyId);
         }
         boolean retrieved = survey.get().getDates().removeIf(date -> date.getDate().compareTo(dateId) == 0);
         if (retrieved) {
             surveyRepository.saveAndFlush(survey.get());
             return survey.get();
         }
-        throw new IllegalArgumentException("date " + dateId + " not found in survey " + surveyId);
+        throw new NotAllowedException("date " + dateId + " not found in survey " + surveyId);
     }
 
 }

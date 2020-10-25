@@ -49,7 +49,7 @@ public class VoteService {
         val vote = voteRepository.findById(id);
 
         if (vote.isPresent())
-            throw new IllegalArgumentException("you've already voted, do a put instead of post to update your vote");
+            throw new NotAllowedException("you've already voted, do a put instead of post to update your vote");
 
         Vote voteEntity = voteMapper.toEntity(voteDto);
         voteEntity.setVotingDate(new Date());
@@ -68,7 +68,7 @@ public class VoteService {
         val user = checkUser(voteDto.getUserId());
         val stream = checkDate(survey, voteDto.getDateId());
         if (stream.count() == 0)
-            throw new IllegalArgumentException("this date deosn't existe in this surveyChoices");
+            throw new NotFoundException("date " + voteDto.getDateId());
         return this.saveVote(user
                 , dateRepository.findById(voteDto.getDateId()).get() /*no need to check isPresent cz it wouldn't be inside
                                                                      the dates of the survey if it's not already in the db*/
@@ -86,7 +86,7 @@ public class VoteService {
         val vote = voteRepository.findById(id);
 
         if (vote.isEmpty())
-            throw new IllegalArgumentException("not found Vote to update");
+            throw new NotFoundException("vote " + id);
         voteMapper.toEntity(vote.get(), voteDto);
         vote.get().setLastUpdate(new Date());
         val result = voteRepository.save(vote.get());
@@ -103,21 +103,21 @@ public class VoteService {
 
     private Survey checkSurvey(Long surveyId) {
         Optional<Survey> surveyOptional = surveyRepository.findById(surveyId);
-        if (surveyOptional.isEmpty()) { //Not Found in db
-            throw new IllegalArgumentException("survey deosn't exist");
+        if (surveyOptional.isEmpty()) {
+            throw new NotFoundException("survey " + surveyId);
         }
         if (surveyOptional.get().getLimitDate().compareTo(new Date()) < 0)
-            throw new IllegalArgumentException("this survey's limit date for voting is reached");
+            throw new NotAllowedException("this survey's limit date for voting is reached");
 
         if (surveyOptional.get().getClosed())
-            throw new IllegalArgumentException("voting is closed for this survey");
+            throw new NotAllowedException("voting is closed for this survey");
         return surveyOptional.get();
     }
 
     private User checkUser(Long userId) {
         val user = userRepository.findById(userId);
         if (user.isEmpty())
-            throw new IllegalArgumentException("the user " + userId + " doesn't exist");
+            throw new NotFoundException("user " + userId);
 
         return user.get();
     }

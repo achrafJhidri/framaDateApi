@@ -23,7 +23,14 @@ public class ResultService {
     public HashMap<String, IResult> getResults(Long surveyId) {
         var survey = surveyRepository.findById(surveyId);
         if (survey.isEmpty())
-            throw new IllegalArgumentException("no survey Id with that Id");
+            throw new NotFoundException("survey " + surveyId);
+
+        var result = new HashMap<String, IGenericResult>();
+
+
+        var aResult = voteRepository.countAvailability(surveyId, 'A');
+        var mResult = voteRepository.countAvailability(surveyId, 'M');
+        var nResult = voteRepository.countAvailability(surveyId, 'N');
 
         var result = new HashMap<String, IResult>();
 

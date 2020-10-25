@@ -3,6 +3,8 @@ package com.example.framadate.service;
 import com.example.framadate.entity.Comment;
 import com.example.framadate.entity.Survey;
 import com.example.framadate.entity.User;
+import com.example.framadate.exceptions.NotAllowedException;
+import com.example.framadate.exceptions.NotFoundException;
 import com.example.framadate.mapper.CommentMapper;
 import com.example.framadate.model.commentDtos.ClientCommentDto;
 import com.example.framadate.model.commentDtos.CommentDto;
@@ -31,22 +33,21 @@ public class CommentService {
         this.commentMapper = commentMapper;
     }
 
-    public List<CommentDto> findAllComments(Long id) {
-        Optional<Survey> survey = surveyRepository.findById(id);
-        //TODO throw notfoundexception
+    public List<CommentDto> findAllComments(Long surveyId) {
+        Optional<Survey> survey = surveyRepository.findById(surveyId);
         return survey.map(value -> value.getComments()
-                .stream().map(commentMapper::toDto).collect(Collectors.toList())).orElse(null);
+                .stream().map(commentMapper::toDto).collect(Collectors.toList())).orElseThrow(() -> new NotFoundException("survey " + surveyId));
     }
 
     public CommentDto comment(Long surveyId, ClientCommentDto commentDto) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
-        if (survey.isEmpty()) { //Not Found in db
-            throw new IllegalArgumentException("survey " + surveyId + " not found ");
+        if (survey.isEmpty()) {
+            throw new NotFoundException("survey " + surveyId);
         }
 
         Optional<User> user = userRepository.findById(commentDto.getUserId());
         if (user.isEmpty())
-            throw new IllegalArgumentException("user " + commentDto.getUserId() + " not found ");
+            throw new NotFoundException("user " + commentDto.getUserId());
 
         Comment commentEntity = commentMapper.toEntity(commentDto);
         commentEntity.setSurvey(survey.get());
@@ -61,23 +62,23 @@ public class CommentService {
     public CommentDto updateComment(ClientCommentDto commentDto, Long commentId) {
         Optional<Comment> comment = commentRepository.findById(commentId);
         if (comment.isEmpty()) {
-            throw new IllegalArgumentException("comment " + commentId + " not found ");
+            throw new NotFoundException("comment " + commentId);
         }
 
         commentMapper.toEntity(comment.get(), commentDto);
         comment.get().setLastUpdate(new Date());
         if (!commentDto.getUserId().equals(comment.get().getUserId()))
-            throw new IllegalArgumentException("you're not supposed to edit others comment");
+            throw new NotAllowedException("you're not supposed to edit others comment");
 
         return commentMapper.toDto(commentRepository.saveAndFlush(comment.get()));
     }
 
     public String deleteComment(Long commentId) {
         Optional<Comment> comment = commentRepository.findById(commentId);
-        if (comment.isEmpty()) { //Not Found in db
-            throw new IllegalArgumentException("comment " + commentId + " not found ");
+        if (comment.isEmpty()) {
+            throw new NotFoundException("comment " + commentId);
         }
         commentRepository.delete(comment.get());
-        return comment.get().getComment();
+        return comment.get().getComment() + " has been deleted";
     }
 }

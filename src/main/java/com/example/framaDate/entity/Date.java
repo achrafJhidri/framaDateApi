@@ -22,7 +22,6 @@ public class Date {
     private java.util.Date date;
 
     @OneToMany(mappedBy = "date",
-//            orphanRemoval = true,
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     private Set<Vote> votes;

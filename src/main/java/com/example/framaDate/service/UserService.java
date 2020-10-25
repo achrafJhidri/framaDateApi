@@ -23,9 +23,9 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public UserDto findUserById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.map(userMapper::toDto).orElse(null);
+    public UserDto findUserById(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        return user.map(userMapper::toDto).orElseThrow(() -> new NotFoundException("user " + userId));
     }
 
     public List<UserDto> findAllUsers() {
@@ -42,7 +42,7 @@ public class UserService {
     public UserDto update(Long userId, PutUserDto userDto) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isEmpty()) {
-            throw new IllegalArgumentException("user " + userId + " not found");
+            throw new NotFoundException("user " + userId);
         }
 
         User user = userOptional.get();
@@ -56,7 +56,7 @@ public class UserService {
     public String deleteUser(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isEmpty()) {
-            throw new IllegalArgumentException("user " + userId + " not found");
+            throw new NotFoundException("user " + userId);
         }
         userRepository.delete(user.get());
         return user.get().toString();
