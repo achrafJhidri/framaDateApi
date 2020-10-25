@@ -1,5 +1,6 @@
 package com.example.framadate.repository;
 
+import com.example.framadate.entity.IGenericResult;
 import com.example.framadate.entity.IResult;
 import com.example.framadate.entity.Vote;
 import com.example.framadate.entity.VoteId;
@@ -22,9 +23,15 @@ public interface VoteRepository extends JpaRepository<Vote, VoteId> {
     @Query(value = "select count(v.*)  as totalVotes,v.date_id as VotingDate " +
             "from vote as v " +
             "where v.survey_id=?1 and (v.availability = 'A' or v.availability ='M') " +
-            "group by V.date_id " +
+            "group by v.date_id " +
             "order by count(v.*) desc "
             , nativeQuery = true)
     Set<IResult> countMaybeOrAvailableVotes(Long surveyId);
 
+
+    @Query(value = "select count(v.*)  as totalVotes " +
+            "from vote as v " +
+            "where v.survey_id=?1 and  v.availability =?2 "
+            , nativeQuery = true)
+    IGenericResult countAvailability(Long surveyId, char availability);
 }

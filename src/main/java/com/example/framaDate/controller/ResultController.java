@@ -1,6 +1,6 @@
 package com.example.framadate.controller;
 
-import com.example.framadate.entity.IResult;
+import com.example.framadate.entity.IGenericResult;
 import com.example.framadate.service.ResultService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +22,7 @@ public class ResultController {
 
 
     @GetMapping(value = "/{surveyId}/result")
-    public ResponseEntity<HashMap<String, IResult>> getResults(@PathVariable Long surveyId) {
-
-        //TODO catch suveyId not Found
-
-        return ResponseEntity.ok().body(resultService.getResults(surveyId));
+    public HashMap<String, IGenericResult> getResults(@PathVariable Long surveyId) {
+        return resultService.getResults(surveyId);
     }
 }

@@ -20,7 +20,7 @@ public class ResultService {
     }
 
 
-    public HashMap<String, IResult> getResults(Long surveyId) {
+    public HashMap<String, IGenericResult> getResults(Long surveyId) {
         var survey = surveyRepository.findById(surveyId);
         if (survey.isEmpty())
             throw new NotFoundException("survey " + surveyId);
@@ -32,16 +32,18 @@ public class ResultService {
         var mResult = voteRepository.countAvailability(surveyId, 'M');
         var nResult = voteRepository.countAvailability(surveyId, 'N');
 
-        var result = new HashMap<String, IResult>();
+        result.put("number of Available votes all dates combined", aResult);
+        result.put("number of NotAvailable votes all dates combined", mResult);
+        result.put("number of Maybe vote all dates combined", nResult);
+
 
         var availableOnlyResult = voteRepository.countVotesForSomeAvailability(surveyId, 'A');
         var availableOrMaybeResult = voteRepository.countMaybeOrAvailableVotes(surveyId);
 
-        if (availableOnlyResult.isEmpty())
-            return result;
-
-        result.put("only available votes", availableOnlyResult.stream().findFirst().get());
-        result.put("available or maybe votes", availableOrMaybeResult.stream().findFirst().get()); //no need to check this because the first
+        if (!availableOrMaybeResult.isEmpty())
+            result.put("available or maybe votes", availableOrMaybeResult.stream().findFirst().get());
+        if (!availableOnlyResult.isEmpty())
+            result.put("only available votes", availableOnlyResult.stream().findFirst().get());
 
         return result;
     }

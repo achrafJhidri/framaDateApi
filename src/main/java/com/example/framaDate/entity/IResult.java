@@ -3,8 +3,6 @@ package com.example.framadate.entity;
 
 import java.util.Date;
 
-public interface IResult {
-    Long getTotalVotes();
-
+public interface IResult extends IGenericResult {
     Date getVotingDate();
 }

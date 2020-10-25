@@ -2,6 +2,7 @@ package com.example.framadate.service;
 
 
 import com.example.framadate.entity.Survey;
+import com.example.framadate.exceptions.NotFoundException;
 import com.example.framadate.mapper.SurveyMapper;
 import com.example.framadate.model.surveyDtos.CreationSurveyDto;
 import com.example.framadate.model.surveyDtos.PutSurveyDto;
