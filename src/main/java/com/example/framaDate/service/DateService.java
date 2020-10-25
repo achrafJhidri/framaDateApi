@@ -5,6 +5,7 @@ import com.example.framadate.entity.Survey;
 import com.example.framadate.exceptions.NotAllowedException;
 import com.example.framadate.exceptions.NotFoundException;
 import com.example.framadate.mapper.DateMapper;
+import com.example.framadate.model.surveyDtos.SurveyDatesDto;
 import com.example.framadate.repository.DateRepository;
 import com.example.framadate.repository.SurveyRepository;
 import org.springframework.stereotype.Service;
@@ -84,12 +85,15 @@ public class DateService {
         if (survey.isEmpty()) {
             throw new NotFoundException("survey " + surveyId);
         }
-        boolean retrieved = survey.get().getDates().removeIf(date -> date.getDate().compareTo(dateId) == 0);
+        boolean retrieved = survey.get().getDates().removeIf(date -> date.getDate().compareTo(dateParsed) == 0);
         if (retrieved) {
             survey.get().getVotes()
                     .removeIf(vote -> vote.getVoteId().getDateId().compareTo(dateParsed) == 0 && vote.getVoteId().getSurveyId().equals(surveyId));
             surveyRepository.saveAndFlush(survey.get());
-            return survey.get();
+            SurveyDatesDto result = new SurveyDatesDto();
+            result.setSurveyDates(this.toDtos(survey.get().getDates()));
+            result.setMessage("date " + dateId + " got deleted");
+            return result;
         }
         throw new NotAllowedException("date " + dateId + " not found in survey " + surveyId);
     }

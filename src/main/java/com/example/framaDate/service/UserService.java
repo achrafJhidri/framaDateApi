@@ -1,6 +1,7 @@
 package com.example.framadate.service;
 
 import com.example.framadate.entity.User;
+import com.example.framadate.exceptions.NotFoundException;
 import com.example.framadate.mapper.UserMapper;
 import com.example.framadate.model.userDtos.PostUserDto;
 import com.example.framadate.model.userDtos.PutUserDto;

@@ -4,6 +4,8 @@ import com.example.framadate.entity.Survey;
 import com.example.framadate.entity.User;
 import com.example.framadate.entity.Vote;
 import com.example.framadate.entity.VoteId;
+import com.example.framadate.exceptions.NotAllowedException;
+import com.example.framadate.exceptions.NotFoundException;
 import com.example.framadate.mapper.VoteMapper;
 import com.example.framadate.model.voteDtos.PostVoteDto;
 import com.example.framadate.model.voteDtos.PutVoteDto;
@@ -95,10 +97,8 @@ public class VoteService {
 
     public List<VoteDto> findAll(Long surveyId) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
-        if (survey.isEmpty())
-            throw new IllegalArgumentException("survey " + surveyId + " not found");
         return survey.map(value -> value.getVotes()
-                .stream().map(voteMapper::toDto).collect(Collectors.toList())).orElse(null);
+                .stream().map(voteMapper::toDto).collect(Collectors.toList())).orElseThrow(() -> new NotFoundException("survey " + surveyId));
     }
 
     private Survey checkSurvey(Long surveyId) {

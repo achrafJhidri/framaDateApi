@@ -45,8 +45,8 @@ public class SurveyService {
         return surveyMapper.toDto(survey);
     }
 
-    public SurveyDto updateSurvey(Long id, PutSurveyDto surveyDto) {
-        Optional<Survey> surveyOptional = surveyRepository.findById(id);
+    public SurveyDto updateSurvey(Long surveyId, PutSurveyDto surveyDto) {
+        Optional<Survey> surveyOptional = surveyRepository.findById(surveyId);
         if (surveyOptional.isEmpty()) { //Not Found in db
             throw new NotFoundException("survey " + surveyId);
         }
