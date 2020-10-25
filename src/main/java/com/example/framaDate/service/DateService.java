@@ -86,6 +86,8 @@ public class DateService {
         }
         boolean retrieved = survey.get().getDates().removeIf(date -> date.getDate().compareTo(dateId) == 0);
         if (retrieved) {
+            survey.get().getVotes()
+                    .removeIf(vote -> vote.getVoteId().getDateId().compareTo(dateParsed) == 0 && vote.getVoteId().getSurveyId().equals(surveyId));
             surveyRepository.saveAndFlush(survey.get());
             return survey.get();
         }
