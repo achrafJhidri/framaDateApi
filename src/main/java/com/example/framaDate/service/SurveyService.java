@@ -40,7 +40,6 @@ public class SurveyService {
         Survey survey = surveyMapper.toEntity(surveyDto);
         survey.setClosed(false); //a new survey is not closed
 
-
         survey = surveyRepository.saveAndFlush(survey);
 
         return surveyMapper.toDto(survey);

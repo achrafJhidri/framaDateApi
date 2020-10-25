@@ -1,15 +1,12 @@
 package com.example.framadate.controller;
 
+import com.example.framadate.model.surveyDtos.SurveyDatesDto;
 import com.example.framadate.service.DateService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -21,20 +18,15 @@ public class DateController {
         this.dateService = dateService;
     }
 
-    @GetMapping(value = "/{id}/dates")
-    public ResponseEntity<List<Date>> dates(@PathVariable Long id) {
-        return Optional
-                .ofNullable(dateService.getAllDates(id))
-                .map(dates -> ResponseEntity.ok().body(dates))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    @GetMapping(value = "/{surveyId}/dates")
+    public List<Date> dates(@PathVariable Long surveyId) {
+        return dateService.getAllDates(surveyId);
     }
 
     @PostMapping(value = "/{surveyId}/dates")
-    public ResponseEntity<List<Date>> addDates(@PathVariable Long surveyId, @RequestBody Set<Date> dates) {
-        return Optional
-                .ofNullable(dateService.addDates(surveyId, dates))
-                .map(dateList -> ResponseEntity.ok().body(dateList))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public List<Date> addDates(@PathVariable Long surveyId, @RequestBody Set<Date> dates) {
+        return dateService.addDates(surveyId, dates);
+
     }
 
     @DeleteMapping(value = "/{surveyId}/dates/{dateId}")

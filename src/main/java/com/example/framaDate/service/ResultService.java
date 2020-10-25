@@ -1,6 +1,7 @@
 package com.example.framadate.service;
 
-import com.example.framadate.entity.IResult;
+import com.example.framadate.entity.IGenericResult;
+import com.example.framadate.exceptions.NotFoundException;
 import com.example.framadate.repository.SurveyRepository;
 import com.example.framadate.repository.VoteRepository;
 import org.springframework.stereotype.Service;
