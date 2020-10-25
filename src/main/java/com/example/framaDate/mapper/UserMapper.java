@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    public static boolean isNullOrEmpty(String s) {
-        return s == null || s.trim().isEmpty();
-    }
 
     public UserDto toDto(User user) {
         return UserDto.builder()

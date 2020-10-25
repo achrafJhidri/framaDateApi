@@ -4,13 +4,11 @@ import com.example.framadate.model.voteDtos.PostVoteDto;
 import com.example.framadate.model.voteDtos.PutVoteDto;
 import com.example.framadate.model.voteDtos.VoteDto;
 import com.example.framadate.service.VoteService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
+
 
 
 @RestController
@@ -23,26 +21,17 @@ public class VoteController {
     }
 
     @PostMapping(value = "/{surveyId}/votes")
-    public ResponseEntity<VoteDto> vote(@PathVariable Long surveyId, @Valid @RequestBody PostVoteDto voteDto) {
-        return Optional //TODO catch the notfoundException
-                .ofNullable(voteService.vote(surveyId, voteDto))
-                .map(createdVote -> ResponseEntity.ok().body(createdVote))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public VoteDto vote(@PathVariable Long surveyId, @Valid @RequestBody PostVoteDto voteDto) {
+        return voteService.vote(surveyId, voteDto);
     }
 
     @PutMapping(value = "/{surveyId}/votes")
-    public ResponseEntity<VoteDto> vote(@PathVariable Long surveyId, @Valid @RequestBody PutVoteDto voteDto) {
-        return Optional //TODO catch the notfoundException
-                .ofNullable(voteService.updateVote(surveyId, voteDto))
-                .map(createdVote -> ResponseEntity.ok().body(createdVote))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public VoteDto updateVote(@PathVariable Long surveyId, @Valid @RequestBody PutVoteDto voteDto) {
+        return voteService.updateVote(surveyId, voteDto);
     }
 
     @GetMapping(value = "/{surveyId}/votes")
-    public ResponseEntity<List<VoteDto>> votes(@PathVariable Long surveyId) {
-        return Optional //TODO catch the notfoundException
-                .ofNullable(voteService.findAll(surveyId))
-                .map(votes -> ResponseEntity.ok().body(votes))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public List<VoteDto> votes(@PathVariable Long surveyId) {
+        return voteService.findAll(surveyId);
     }
 }

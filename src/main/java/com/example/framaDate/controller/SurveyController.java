@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/framadate/api/v1/surveys")
@@ -24,8 +24,8 @@ public class SurveyController {
 
 
     @GetMapping(value = "/")
-    public ResponseEntity<List<SurveyDto>> surveys() {
-        return ResponseEntity.ok().body(surveyService.findAllSurveys());
+    public List<SurveyDto> surveys() {
+        return surveyService.findAllSurveys();
     }
 
     @PostMapping(value = "/")
@@ -35,20 +35,14 @@ public class SurveyController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<SurveyDto> findOne(@PathVariable Long id) {
-        return Optional
-                .ofNullable(surveyService.findOneSurvey(id))
-                .map(surveyDto -> ResponseEntity.ok().body(surveyDto)) //200 OK
-                .orElseGet(() -> ResponseEntity.notFound().build());   //404 Not found
+    public SurveyDto findOne(@PathVariable Long id) {
+        return surveyService.findOneSurvey(id);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<SurveyDto> update(@PathVariable Long id, @Valid @RequestBody PutSurveyDto surveyDto) {
+    public SurveyDto update(@PathVariable Long id, @Valid @RequestBody PutSurveyDto surveyDto) {
 
-        return Optional
-                .ofNullable(surveyService.updateSurvey(id, surveyDto))
-                .map(surveyDtoUpdated -> ResponseEntity.ok().body(surveyDtoUpdated)) //200 OK
-                .orElseGet(() -> ResponseEntity.notFound().build());   //404 Not found
+        return surveyService.updateSurvey(id, surveyDto);
 
     }
 }
