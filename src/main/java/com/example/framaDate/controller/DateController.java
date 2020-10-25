@@ -38,11 +38,8 @@ public class DateController {
     }
 
     @DeleteMapping(value = "/{surveyId}/dates/{dateId}")
-    public ResponseEntity<String> deleteDate(@PathVariable Long surveyId, @PathVariable String dateId) throws ParseException {
-        return Optional //TODO catch ParseException here !
-                .ofNullable(dateService.deleteDate(surveyId, new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").parse(dateId)))
-                .map(survey -> ResponseEntity.ok().body("the date " + dateId + " has been deleted from the survey " + surveyId))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("the date " + dateId + " not found in survey " + surveyId));
+    public SurveyDatesDto deleteDate(@PathVariable Long surveyId, @PathVariable String dateId) throws ParseException {
+        return dateService.deleteDate(surveyId, dateId);
     }
 
 }

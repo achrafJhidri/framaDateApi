@@ -2,12 +2,15 @@ package com.example.framadate.service;
 
 import com.example.framadate.entity.Date;
 import com.example.framadate.entity.Survey;
+import com.example.framadate.exceptions.NotAllowedException;
+import com.example.framadate.exceptions.NotFoundException;
 import com.example.framadate.mapper.DateMapper;
 import com.example.framadate.repository.DateRepository;
 import com.example.framadate.repository.SurveyRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -69,7 +72,14 @@ public class DateService {
         }).collect(Collectors.toSet());
     }
 
-    public Survey deleteDate(Long surveyId, java.util.Date dateId) {
+    public SurveyDatesDto deleteDate(Long surveyId, String dateId) throws ParseException {
+        java.util.Date dateParsed;
+        try {
+            dateParsed = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").parse(dateId);
+        } catch (ParseException e) {
+            throw new ParseException("the format yyyy-MM-dd'T'HH:mm:ss.SSSXXX is not respected try something like 2000-12-29T15:01:20.000+00:00", e.getErrorOffset());
+        }
+
         Optional<Survey> survey = surveyRepository.findById(surveyId);
         if (survey.isEmpty()) {
             throw new NotFoundException("survey " + surveyId);
