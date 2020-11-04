@@ -6,11 +6,15 @@ stages:
   - quality
 
 build:
+  tags:
+    - build
   stage: build
   script:
     - ./mvnw clean compile
 
 java coverage:
+  tags:
+    - test
   stage: test
   script:
     - ./mvnw  clean -B -fae clover:setup test clover:aggregate clover:clover clover:check
@@ -21,6 +25,8 @@ java coverage:
     when: always
 
 java sonar:
+  tags:
+    - quality
   stage: quality
   script:
     ./mvnw clean verify sonar:sonar
