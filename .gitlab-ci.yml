@@ -35,4 +35,4 @@ java sonar:
     - quality
   stage: quality
   script:
-    ./mvnw clean verify sonar:sonar
+    ./mvnw clean verify sonar:sonar -Dsonar.host.url=http://localhost:9000  -Dsonar.login=6693f3ae65869db8796a8c10c66f4a223d221214
