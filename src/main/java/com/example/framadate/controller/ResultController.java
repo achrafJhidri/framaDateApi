@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/framadate/api/v1/surveys")
@@ -21,7 +21,7 @@ public class ResultController {
 
 
     @GetMapping(value = "/{surveyId}/result")
-    public HashMap<String, IGenericResult> getResults(@PathVariable Long surveyId) {
+    public Map<String, IGenericResult> getResults(@PathVariable Long surveyId) {
         return resultService.getResults(surveyId);
     }
 }

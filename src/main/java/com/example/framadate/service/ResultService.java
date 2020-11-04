@@ -7,6 +7,7 @@ import com.example.framadate.repository.VoteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -21,7 +22,7 @@ public class ResultService {
     }
 
 
-    public HashMap<String, IGenericResult> getResults(Long surveyId) {
+    public Map<String, IGenericResult> getResults(Long surveyId) {
         var survey = surveyRepository.findById(surveyId);
         if (survey.isEmpty())
             throw new NotFoundException("survey " + surveyId);
