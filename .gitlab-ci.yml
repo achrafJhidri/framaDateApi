@@ -1,0 +1,26 @@
+image: maven:3.6.3-jdk-11
+
+stages:
+  - build
+  - test
+  - quality
+
+build:
+  stage: build
+  script:
+    - ./mvnw clean compile
+
+java coverage:
+  stage: test
+  script:
+    - ./mvnw  clean -B -fae clover:setup test clover:aggregate clover:clover clover:check
+  artifacts:
+    paths:
+      - ./target/site/clover
+    expire_in: 2 weeks
+    when: always
+
+java sonar:
+  stage: quality
+  script:
+    ./mvnw clean verify sonar:sonar
