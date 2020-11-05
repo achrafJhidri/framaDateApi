@@ -45,4 +45,5 @@ deploy:
     - deploy
   stage: deploy
   script:
-    java -jar ./target/framadate-0.0.1-SNAPSHOT.jar
+    - ./mvnw package
+    - java -jar ./target/framadate-0.0.1-SNAPSHOT.jar
