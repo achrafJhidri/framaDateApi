@@ -4,6 +4,7 @@ stages:
   - build
   - test
   - quality
+  - deploy
 
 build:
   tags:
@@ -12,7 +13,7 @@ build:
   script:
     - ./mvnw clean compile
 
-java coverage:
+coverage:
   tags:
     - test
   stage: test
@@ -24,16 +25,24 @@ java coverage:
     expire_in: 2 weeks
     when: always
 
-java test:
+test:
   tags:
     - test
   stage: test
   script:
     - ./mvnw  test
 
-java sonar:
+sonar:
   tags:
     - quality
   stage: quality
   script:
     ./mvnw clean verify sonar:sonar
+
+
+deploy:
+  tags:
+    - deploy
+  stage: deploy
+  script:
+    java -jar ./target/framadate-0.0.1-SNAPSHOT.jar
