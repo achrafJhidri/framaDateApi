@@ -11,14 +11,14 @@ build:
   #    - build
   stage: build
   script:
-    - ./mvnw clean compile
+    mvn clean compile
 
 coverage:
   #  tags:
   #    - test
   stage: test
   script:
-    - ./mvnw  clean -B -fae clover:setup test clover:aggregate clover:clover clover:check
+    mvn  clean -B -fae clover:setup test clover:aggregate clover:clover clover:check
   artifacts:
     paths:
       - ./target/site/clover
@@ -30,14 +30,14 @@ test:
   #    - test
   stage: test
   script:
-    - ./mvnw  test
+    mvn  test
 
 sonar:
   #  tags:
   #    - quality
   stage: quality
   script:
-    ./mvnw clean verify sonar:sonar
+    mvn clean verify sonar:sonar
 
 
 #deploy:
