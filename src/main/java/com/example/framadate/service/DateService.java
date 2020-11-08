@@ -57,7 +57,7 @@ public class DateService {
             throw new NotFoundException("survey " + surveyId);
         }
 
-        var datesFiltrated = filterDates(dates);
+        var datesFiltrated = filterDates(dates, survey.get().getLimitDate());
         Set<com.example.framadate.entity.Date> dateEntities = this.getOrCreateDates(datesFiltrated);
         survey.get().addDates(dateEntities);
         surveyRepository.saveAndFlush(survey.get());
@@ -65,10 +65,10 @@ public class DateService {
         return this.toDtos(dateEntities);
     }
 
-    private Set<java.util.Date> filterDates(Set<java.util.Date> dates) {
+    private Set<java.util.Date> filterDates(Set<java.util.Date> dates, java.util.Date limitDate) {
         return dates.stream().filter(date -> {
             if (date != null)
-                return date.compareTo(new java.util.Date()) > 0;
+                return date.compareTo(new java.util.Date()) > 0 && date.compareTo(limitDate) > 0;
             return false;
         }).collect(Collectors.toSet());
     }
