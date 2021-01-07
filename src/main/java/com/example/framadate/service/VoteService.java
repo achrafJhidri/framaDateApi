@@ -7,9 +7,9 @@ import com.example.framadate.entity.VoteId;
 import com.example.framadate.exceptions.NotAllowedException;
 import com.example.framadate.exceptions.NotFoundException;
 import com.example.framadate.mapper.VoteMapper;
-import com.example.framadate.model.voteDtos.PostVoteDto;
-import com.example.framadate.model.voteDtos.PutVoteDto;
-import com.example.framadate.model.voteDtos.VoteDto;
+import com.example.framadate.model.vote_dtos.PostVoteDto;
+import com.example.framadate.model.vote_dtos.PutVoteDto;
+import com.example.framadate.model.vote_dtos.VoteDto;
 import com.example.framadate.repository.DateRepository;
 import com.example.framadate.repository.SurveyRepository;
 import com.example.framadate.repository.UserRepository;
@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static com.example.framadate.model.Constants.*;
 
 @Service
 public class VoteService {
@@ -44,7 +46,7 @@ public class VoteService {
 
     public VoteDto saveVote(User user, com.example.framadate.entity.Date date, Survey survey, PostVoteDto voteDto) {
         VoteId id = VoteId.builder()
-                .dateId(date.getDate())
+                .dateId(date.getTheDate())
                 .surveyId(survey.getId())
                 .userId(user.getId())
                 .build();
@@ -70,7 +72,7 @@ public class VoteService {
         val user = checkUser(voteDto.getUserId());
         val stream = checkDate(survey, voteDto.getDateId());
         if (stream.count() == 0)
-            throw new NotFoundException("date " + voteDto.getDateId());
+            throw new NotFoundException(DATE + voteDto.getDateId());
         return this.saveVote(user
                 , dateRepository.findById(voteDto.getDateId()).get() /*no need to check isPresent cz it wouldn't be inside
                                                                      the dates of the survey if it's not already in the db*/
@@ -88,7 +90,7 @@ public class VoteService {
         val vote = voteRepository.findById(id);
 
         if (vote.isEmpty())
-            throw new NotFoundException("vote " + id);
+            throw new NotFoundException(VOTE + id);
         voteMapper.toEntity(vote.get(), voteDto);
         vote.get().setLastUpdate(new Date());
         val result = voteRepository.save(vote.get());
@@ -98,13 +100,13 @@ public class VoteService {
     public List<VoteDto> findAll(Long surveyId) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
         return survey.map(value -> value.getVotes()
-                .stream().map(voteMapper::toDto).collect(Collectors.toList())).orElseThrow(() -> new NotFoundException("survey " + surveyId));
+                .stream().map(voteMapper::toDto).collect(Collectors.toList())).orElseThrow(() -> new NotFoundException(SURVEY + surveyId));
     }
 
     private Survey checkSurvey(Long surveyId) {
         Optional<Survey> surveyOptional = surveyRepository.findById(surveyId);
         if (surveyOptional.isEmpty()) {
-            throw new NotFoundException("survey " + surveyId);
+            throw new NotFoundException(SURVEY + surveyId);
         }
         if (surveyOptional.get().getLimitDate().compareTo(new Date()) < 0)
             throw new NotAllowedException("this survey's limit date for voting is reached");
@@ -117,14 +119,14 @@ public class VoteService {
     private User checkUser(Long userId) {
         val user = userRepository.findById(userId);
         if (user.isEmpty())
-            throw new NotFoundException("user " + userId);
+            throw new NotFoundException(USER + userId);
 
         return user.get();
     }
 
     private Stream<com.example.framadate.entity.Date> checkDate(Survey survey, Date dateId) {
         return survey.getDates().stream()
-                .filter(date -> date.getDate().compareTo(dateId) == 0);
+                .filter(date -> date.getTheDate().compareTo(dateId) == 0);
     }
 
 

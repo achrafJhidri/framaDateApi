@@ -80,9 +80,7 @@
                 <configuration>
                     <targetPercentage>0.00000000%</targetPercentage>
                     <generateHtml>true</generateHtml>
-                    <excludes>
-                        <!--                        <exclude>**/M2giApplication.java</exclude>-->
-                    </excludes>
+
                 </configuration>
             </plugin>
         </plugins>

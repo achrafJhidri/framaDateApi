@@ -1,8 +1,8 @@
 package com.example.framadate.mapper;
 
 import com.example.framadate.entity.User;
-import com.example.framadate.model.userDtos.PostUserDto;
-import com.example.framadate.model.userDtos.PutUserDto;
+import com.example.framadate.model.user_dtos.PostUserDto;
+import com.example.framadate.model.user_dtos.PutUserDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

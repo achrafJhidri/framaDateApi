@@ -2,9 +2,9 @@ package com.example.framadate.mapper;
 
 import com.example.framadate.entity.Vote;
 import com.example.framadate.entity.VoteId;
-import com.example.framadate.model.voteDtos.PostVoteDto;
-import com.example.framadate.model.voteDtos.PutVoteDto;
-import com.example.framadate.model.voteDtos.VoteDto;
+import com.example.framadate.model.vote_dtos.PostVoteDto;
+import com.example.framadate.model.vote_dtos.PutVoteDto;
+import com.example.framadate.model.vote_dtos.VoteDto;
 import org.springframework.stereotype.Component;
 
 @Component

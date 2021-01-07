@@ -6,8 +6,8 @@ import com.example.framadate.entity.User;
 import com.example.framadate.exceptions.NotAllowedException;
 import com.example.framadate.exceptions.NotFoundException;
 import com.example.framadate.mapper.CommentMapper;
-import com.example.framadate.model.commentDtos.ClientCommentDto;
-import com.example.framadate.model.commentDtos.CommentDto;
+import com.example.framadate.model.comment_dtos.ClientCommentDto;
+import com.example.framadate.model.comment_dtos.CommentDto;
 import com.example.framadate.repository.CommentRepository;
 import com.example.framadate.repository.SurveyRepository;
 import com.example.framadate.repository.UserRepository;
@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.example.framadate.model.Constants.*;
 
 @Service
 public class CommentService {
@@ -36,18 +38,18 @@ public class CommentService {
     public List<CommentDto> findAllComments(Long surveyId) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
         return survey.map(value -> value.getComments()
-                .stream().map(commentMapper::toDto).collect(Collectors.toList())).orElseThrow(() -> new NotFoundException("survey " + surveyId));
+                .stream().map(commentMapper::toDto).collect(Collectors.toList())).orElseThrow(() -> new NotFoundException(SURVEY + surveyId));
     }
 
     public CommentDto comment(Long surveyId, ClientCommentDto commentDto) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
         if (survey.isEmpty()) {
-            throw new NotFoundException("survey " + surveyId);
+            throw new NotFoundException(SURVEY + surveyId);
         }
 
         Optional<User> user = userRepository.findById(commentDto.getUserId());
         if (user.isEmpty())
-            throw new NotFoundException("user " + commentDto.getUserId());
+            throw new NotFoundException(USER + commentDto.getUserId());
 
         Comment commentEntity = commentMapper.toEntity(commentDto);
         commentEntity.setSurvey(survey.get());
@@ -62,7 +64,7 @@ public class CommentService {
     public CommentDto updateComment(ClientCommentDto commentDto, Long commentId) {
         Optional<Comment> comment = commentRepository.findById(commentId);
         if (comment.isEmpty()) {
-            throw new NotFoundException("comment " + commentId);
+            throw new NotFoundException(COMMENT + commentId);
         }
 
         commentMapper.toEntity(comment.get(), commentDto);
@@ -76,7 +78,7 @@ public class CommentService {
     public String deleteComment(Long commentId) {
         Optional<Comment> comment = commentRepository.findById(commentId);
         if (comment.isEmpty()) {
-            throw new NotFoundException("comment " + commentId);
+            throw new NotFoundException(COMMENT + commentId);
         }
         commentRepository.delete(comment.get());
         return comment.get().getContent() + " has been deleted";

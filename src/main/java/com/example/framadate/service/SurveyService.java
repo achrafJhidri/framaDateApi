@@ -4,9 +4,9 @@ package com.example.framadate.service;
 import com.example.framadate.entity.Survey;
 import com.example.framadate.exceptions.NotFoundException;
 import com.example.framadate.mapper.SurveyMapper;
-import com.example.framadate.model.surveyDtos.CreationSurveyDto;
-import com.example.framadate.model.surveyDtos.PutSurveyDto;
-import com.example.framadate.model.surveyDtos.SurveyDto;
+import com.example.framadate.model.survey_dtos.CreationSurveyDto;
+import com.example.framadate.model.survey_dtos.PutSurveyDto;
+import com.example.framadate.model.survey_dtos.SurveyDto;
 import com.example.framadate.repository.SurveyRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.example.framadate.model.Constants.SURVEY;
+
 @Service
 public class SurveyService {
+
 
     private final SurveyRepository surveyRepository;
     private final SurveyMapper surveyMapper;
@@ -33,7 +36,7 @@ public class SurveyService {
 
     public SurveyDto findOneSurvey(Long surveyId) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
-        return survey.map(surveyMapper::toDto).orElseThrow(() -> new NotFoundException("survey " + surveyId));
+        return survey.map(surveyMapper::toDto).orElseThrow(() -> new NotFoundException(SURVEY + surveyId));
     }
 
     public SurveyDto createSurvey(CreationSurveyDto surveyDto) {
@@ -48,7 +51,7 @@ public class SurveyService {
     public SurveyDto updateSurvey(Long surveyId, PutSurveyDto surveyDto) {
         Optional<Survey> surveyOptional = surveyRepository.findById(surveyId);
         if (surveyOptional.isEmpty()) { //Not Found in db
-            throw new NotFoundException("survey " + surveyId);
+            throw new NotFoundException(SURVEY + surveyId);
         }
         Survey survey = surveyOptional.get(); // this isn't redundant
         // it's useful when you want to update juste one field

@@ -1,25 +1,28 @@
-package com.example.framadate.model.commentDtos;
+package com.example.framadate.model.vote_dtos;
 
+import com.example.framadate.entity.Availability;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientCommentDto {
-    @Getter
-    @NotBlank(message = "leave a valid comment")
+public class PostVoteDto {
     @Size(min = 2)
-    private String comment;
-    @Getter
+    String comment;
     @NotNull
+    Availability availability;
     @PositiveOrZero
-    private Long userId;
+    @NotNull
+    Long userId;
+    @NotNull
+    Date dateId;
 }

@@ -70,7 +70,7 @@ public class Survey {
     //removes the date from the survey dates
     //and if removed , removed all concerned votes
     public boolean removeDate(java.util.Date date) {
-        boolean retrieved = this.dates.removeIf(item -> item.getDate().compareTo(date) == 0);
+        boolean retrieved = this.dates.removeIf(item -> item.getTheDate().compareTo(date) == 0);
         if (retrieved) {
             this.votes.removeIf(vote -> vote.getVoteId().getDateId().compareTo(date) == 0);
         }

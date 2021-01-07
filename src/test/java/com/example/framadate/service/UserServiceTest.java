@@ -2,9 +2,9 @@ package com.example.framadate.service;
 
 import com.example.framadate.entity.User;
 import com.example.framadate.mapper.UserMapper;
-import com.example.framadate.model.userDtos.PostUserDto;
-import com.example.framadate.model.userDtos.PutUserDto;
-import com.example.framadate.model.userDtos.UserDto;
+import com.example.framadate.model.user_dtos.PostUserDto;
+import com.example.framadate.model.user_dtos.PutUserDto;
+import com.example.framadate.model.user_dtos.UserDto;
 import com.example.framadate.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

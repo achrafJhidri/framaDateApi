@@ -1,8 +1,8 @@
 package com.example.framadate.mapper;
 
 import com.example.framadate.entity.Comment;
-import com.example.framadate.model.commentDtos.ClientCommentDto;
-import com.example.framadate.model.commentDtos.CommentDto;
+import com.example.framadate.model.comment_dtos.ClientCommentDto;
+import com.example.framadate.model.comment_dtos.CommentDto;
 import org.springframework.stereotype.Component;
 
 

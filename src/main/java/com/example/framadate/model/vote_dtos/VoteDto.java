@@ -1,4 +1,4 @@
-package com.example.framadate.model.voteDtos;
+package com.example.framadate.model.vote_dtos;
 
 import com.example.framadate.entity.Availability;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
 package com.example.framadate.controller;
 
-import com.example.framadate.model.userDtos.PostUserDto;
-import com.example.framadate.model.userDtos.PutUserDto;
-import com.example.framadate.model.userDtos.UserDto;
+import com.example.framadate.model.user_dtos.PostUserDto;
+import com.example.framadate.model.user_dtos.PutUserDto;
+import com.example.framadate.model.user_dtos.UserDto;
 import com.example.framadate.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

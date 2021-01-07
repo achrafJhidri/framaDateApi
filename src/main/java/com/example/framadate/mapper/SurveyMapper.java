@@ -2,9 +2,9 @@ package com.example.framadate.mapper;
 
 
 import com.example.framadate.entity.Survey;
-import com.example.framadate.model.surveyDtos.CreationSurveyDto;
-import com.example.framadate.model.surveyDtos.PutSurveyDto;
-import com.example.framadate.model.surveyDtos.SurveyDto;
+import com.example.framadate.model.survey_dtos.CreationSurveyDto;
+import com.example.framadate.model.survey_dtos.PutSurveyDto;
+import com.example.framadate.model.survey_dtos.SurveyDto;
 import org.springframework.stereotype.Component;
 
 @Component

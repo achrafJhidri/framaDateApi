@@ -3,15 +3,17 @@ package com.example.framadate.service;
 import com.example.framadate.entity.User;
 import com.example.framadate.exceptions.NotFoundException;
 import com.example.framadate.mapper.UserMapper;
-import com.example.framadate.model.userDtos.PostUserDto;
-import com.example.framadate.model.userDtos.PutUserDto;
-import com.example.framadate.model.userDtos.UserDto;
+import com.example.framadate.model.user_dtos.PostUserDto;
+import com.example.framadate.model.user_dtos.PutUserDto;
+import com.example.framadate.model.user_dtos.UserDto;
 import com.example.framadate.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.example.framadate.model.Constants.USER;
 
 @Service
 public class UserService {
@@ -26,7 +28,7 @@ public class UserService {
 
     public UserDto findUserById(Long userId) {
         Optional<User> user = userRepository.findById(userId);
-        return user.map(userMapper::toDto).orElseThrow(() -> new NotFoundException("user " + userId));
+        return user.map(userMapper::toDto).orElseThrow(() -> new NotFoundException(USER + userId));
     }
 
     public List<UserDto> findAllUsers() {
@@ -43,7 +45,7 @@ public class UserService {
     public UserDto update(Long userId, PutUserDto userDto) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isEmpty()) {
-            throw new NotFoundException("user " + userId);
+            throw new NotFoundException(USER + userId);
         }
 
         User user = userOptional.get();
@@ -57,7 +59,7 @@ public class UserService {
     public String deleteUser(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isEmpty()) {
-            throw new NotFoundException("user " + userId);
+            throw new NotFoundException(USER + userId);
         }
         userRepository.delete(user.get());
         return user.get().toString();

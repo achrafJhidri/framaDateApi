@@ -1,4 +1,4 @@
-package com.example.framadate.model.surveyDtos;
+package com.example.framadate.model.survey_dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -20,7 +20,7 @@ import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class DateServiceTest {
+class DateServiceTest {
     @Mock
     private DateRepository dateRepository;
 

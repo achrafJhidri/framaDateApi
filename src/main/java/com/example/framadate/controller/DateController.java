@@ -1,6 +1,6 @@
 package com.example.framadate.controller;
 
-import com.example.framadate.model.surveyDtos.SurveyDatesDto;
+import com.example.framadate.model.survey_dtos.SurveyDatesDto;
 import com.example.framadate.service.DateService;
 import org.springframework.web.bind.annotation.*;
 

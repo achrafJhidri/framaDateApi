@@ -1,4 +1,4 @@
-package com.example.framadate.model.userDtos;
+package com.example.framadate.model.user_dtos;
 
 
 import org.junit.jupiter.api.BeforeAll;

@@ -14,7 +14,7 @@ public class DateMapper {
 
     public List<java.util.Date> toDtos(Set<Date> dateEntities) {
         return dateEntities.stream().map(
-                Date::getDate)
+                Date::getTheDate)
                 .collect(Collectors.toList());
 
     }

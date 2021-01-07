@@ -1,4 +1,4 @@
-package com.example.framadate.model.surveyDtos;
+package com.example.framadate.model.vote_dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,14 +7,12 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Data
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SurveyDto {
-    Long id;
-    String name;
-    String description;
-    Date limitDate;
-    Boolean closed;
+public class VoteIdDto {
+    private Long userId;
+    private Date dateId;
+    private Long surveyId;
 }

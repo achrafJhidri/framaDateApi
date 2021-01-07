@@ -1,7 +1,7 @@
 package com.example.framadate.controller;
 
-import com.example.framadate.model.commentDtos.ClientCommentDto;
-import com.example.framadate.model.commentDtos.CommentDto;
+import com.example.framadate.model.comment_dtos.ClientCommentDto;
+import com.example.framadate.model.comment_dtos.CommentDto;
 import com.example.framadate.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 

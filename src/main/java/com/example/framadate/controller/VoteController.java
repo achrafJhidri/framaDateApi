@@ -1,8 +1,8 @@
 package com.example.framadate.controller;
 
-import com.example.framadate.model.voteDtos.PostVoteDto;
-import com.example.framadate.model.voteDtos.PutVoteDto;
-import com.example.framadate.model.voteDtos.VoteDto;
+import com.example.framadate.model.vote_dtos.PostVoteDto;
+import com.example.framadate.model.vote_dtos.PutVoteDto;
+import com.example.framadate.model.vote_dtos.VoteDto;
 import com.example.framadate.service.VoteService;
 import org.springframework.web.bind.annotation.*;
 

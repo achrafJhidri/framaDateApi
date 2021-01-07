@@ -5,7 +5,7 @@ import com.example.framadate.entity.Survey;
 import com.example.framadate.exceptions.NotAllowedException;
 import com.example.framadate.exceptions.NotFoundException;
 import com.example.framadate.mapper.DateMapper;
-import com.example.framadate.model.surveyDtos.SurveyDatesDto;
+import com.example.framadate.model.survey_dtos.SurveyDatesDto;
 import com.example.framadate.repository.DateRepository;
 import com.example.framadate.repository.SurveyRepository;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.example.framadate.model.Constants.SURVEY;
+
 @Service
 public class DateService {
+
     private final DateRepository dateRepository;
     private final DateMapper dateMapper;
     private final SurveyRepository surveyRepository;
@@ -37,7 +40,7 @@ public class DateService {
     public Set<Date> getOrCreateDates(Set<java.util.Date> dates) {
         return dates.stream().map(date -> {
                     Optional<Date> optDate = dateRepository.findById(date);
-                    return optDate.orElse(dateRepository.saveAndFlush(Date.builder().date(date).build()));
+            return optDate.orElse(dateRepository.saveAndFlush(Date.builder().theDate(date).build()));
                 }
         ).collect(Collectors.toSet());
     }
@@ -45,16 +48,16 @@ public class DateService {
     public List<java.util.Date> getAllDates(Long surveyId) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
         return survey.map(value -> value.getDates()
-                .stream().map(com.example.framadate.entity.Date::getDate)
+                .stream().map(com.example.framadate.entity.Date::getTheDate)
                 .collect(Collectors.toList()))
-                .orElseThrow(() -> new NotFoundException("survey " + surveyId));
+                .orElseThrow(() -> new NotFoundException(SURVEY + surveyId));
     }
 
     public List<java.util.Date> addDates(Long surveyId, Set<java.util.Date> dates) {
         Optional<Survey> survey = surveyRepository.findById(surveyId);
 
         if (survey.isEmpty()) {
-            throw new NotFoundException("survey " + surveyId);
+            throw new NotFoundException(SURVEY + surveyId);
         }
 
         var datesFiltrated = filterDates(dates, survey.get().getLimitDate());
@@ -83,7 +86,7 @@ public class DateService {
 
         Optional<Survey> survey = surveyRepository.findById(surveyId);
         if (survey.isEmpty()) {
-            throw new NotFoundException("survey " + surveyId);
+            throw new NotFoundException(SURVEY + surveyId);
         }
         boolean retrieved = survey.get().removeDate(dateParsed);
         if (retrieved) {

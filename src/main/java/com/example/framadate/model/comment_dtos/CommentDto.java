@@ -1,4 +1,4 @@
-package com.example.framadate.model.commentDtos;
+package com.example.framadate.model.comment_dtos;
 
 
 import lombok.AllArgsConstructor;

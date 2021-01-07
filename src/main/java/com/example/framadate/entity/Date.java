@@ -19,7 +19,7 @@ import java.util.Set;
 public class Date {
     @Id
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private java.util.Date date;
+    private java.util.Date theDate;
 
     @OneToMany(mappedBy = "date",
             cascade = CascadeType.ALL,
@@ -29,21 +29,17 @@ public class Date {
     @ManyToMany(mappedBy = "dates")
     private Set<Survey> surveys;
 
-    public java.util.Date getDate() {
-        return this.date;
-    }
-
     public boolean equals(final Object o) {
 
         if (!(o instanceof Date)) return false;
-        return date.equals(((Date) o).date);
+        return theDate.equals(((Date) o).theDate);
     }
 
     public int hashCode() {
-        return Objects.hashCode(date);
+        return Objects.hashCode(theDate);
     }
 
     public String toString() {
-        return String.join(",", date.toString());
+        return String.join(",", theDate.toString());
     }
 }

@@ -33,12 +33,12 @@ public class VoteId implements Serializable {
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
-        final Object $userId = this.getUserId();
-        result = result * PRIME + ($userId == null ? 43 : $userId.hashCode());
-        final Object $dateId = this.getDateId();
-        result = result * PRIME + ($dateId == null ? 43 : $dateId.hashCode());
-        final Object $surveyId = this.getSurveyId();
-        result = result * PRIME + ($surveyId == null ? 43 : $surveyId.hashCode());
+        final Long userId = this.getUserId();
+        result = result * PRIME + (userId == null ? 43 : userId.hashCode());
+        final Date dateId = this.getDateId();
+        result = result * PRIME + (dateId == null ? 43 : dateId.hashCode());
+        final Long surveyId = this.getSurveyId();
+        result = result * PRIME + (surveyId == null ? 43 : surveyId.hashCode());
         return result;
     }
 

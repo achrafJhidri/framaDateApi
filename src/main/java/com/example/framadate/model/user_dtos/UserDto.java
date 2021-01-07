@@ -1,4 +1,4 @@
-package com.example.framadate.model.userDtos;
+package com.example.framadate.model.user_dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
