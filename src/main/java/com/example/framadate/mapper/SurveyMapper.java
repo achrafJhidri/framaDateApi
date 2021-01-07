@@ -12,7 +12,7 @@ public class SurveyMapper {
     public SurveyDto toDto(Survey survey) {
         return SurveyDto.builder()
                 .id(survey.getId())
-                .closed(survey.getClosed())
+                .closed(survey.isClosed())
                 .description(survey.getDescription())
                 .name(survey.getName())
                 .limitDate(survey.getLimitDate())
