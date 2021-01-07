@@ -87,8 +87,6 @@ public class DateService {
         }
         boolean retrieved = survey.get().removeDate(dateParsed);
         if (retrieved) {
-            survey.get().getVotes()
-                    .removeIf(vote -> vote.getVoteId().getDateId().compareTo(dateParsed) == 0 && vote.getVoteId().getSurveyId().equals(surveyId));
             surveyRepository.saveAndFlush(survey.get());
             SurveyDatesDto result = new SurveyDatesDto();
             result.setSurveyDates(this.toDtos(survey.get().getDates()));
