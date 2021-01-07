@@ -4,13 +4,13 @@ import com.example.framadate.entity.Survey;
 import com.example.framadate.mapper.DateMapper;
 import com.example.framadate.repository.DateRepository;
 import com.example.framadate.repository.SurveyRepository;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
@@ -53,9 +53,9 @@ public class DateServiceTest {
         verify(surveyRepository, times(1)).saveAndFlush(surveyOpt.get());
     }
 
-    @SneakyThrows
+
     @Test
-    void givenValidDate_whenDeleteDate_thenOk() {
+    void givenValidDate_whenDeleteDate_thenOk() throws ParseException {
         Optional<Survey> surveyOpt = Optional.of(survey);
 
         String dateId = "2200-10-02T13:14:59.000+00:00";
