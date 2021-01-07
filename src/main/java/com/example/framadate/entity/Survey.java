@@ -47,7 +47,7 @@ public class Survey {
             fetch = FetchType.LAZY)
     private Set<Vote> votes;
 
-    private Boolean closed;
+    private boolean closed;
 
 
     public void addDates(Set<Date> dates) {

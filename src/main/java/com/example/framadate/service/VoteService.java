@@ -73,8 +73,13 @@ public class VoteService {
         val stream = checkDate(survey, voteDto.getDateId());
         if (stream.count() == 0)
             throw new NotFoundException(DATE + voteDto.getDateId());
+        
+        var date = dateRepository.findById(voteDto.getDateId());
+        if (date.isEmpty())
+            throw new NotFoundException(DATE + voteDto.getDateId());
+
         return this.saveVote(user
-                , dateRepository.findById(voteDto.getDateId()).get() /*no need to check isPresent cz it wouldn't be inside
+                , date.get() /*no need to check isPresent cz it wouldn't be inside
                                                                      the dates of the survey if it's not already in the db*/
                 , survey
                 , voteDto);
@@ -111,7 +116,7 @@ public class VoteService {
         if (surveyOptional.get().getLimitDate().compareTo(new Date()) < 0)
             throw new NotAllowedException("this survey's limit date for voting is reached");
 
-        if (surveyOptional.get().getClosed())
+        if (surveyOptional.get().isClosed())
             throw new NotAllowedException("voting is closed for this survey");
         return surveyOptional.get();
     }
