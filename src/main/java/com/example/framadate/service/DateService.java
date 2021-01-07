@@ -85,7 +85,7 @@ public class DateService {
         if (survey.isEmpty()) {
             throw new NotFoundException("survey " + surveyId);
         }
-        boolean retrieved = survey.get().getDates().removeIf(date -> date.getDate().compareTo(dateParsed) == 0);
+        boolean retrieved = survey.get().removeDate(dateParsed);
         if (retrieved) {
             survey.get().getVotes()
                     .removeIf(vote -> vote.getVoteId().getDateId().compareTo(dateParsed) == 0 && vote.getVoteId().getSurveyId().equals(surveyId));
