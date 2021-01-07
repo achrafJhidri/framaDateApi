@@ -65,7 +65,7 @@ public class DateService {
         return this.toDtos(dateEntities);
     }
 
-    private Set<java.util.Date> filterDates(Set<java.util.Date> dates, java.util.Date limitDate) {
+    private static Set<java.util.Date> filterDates(Set<java.util.Date> dates, java.util.Date limitDate) {
         return dates.stream().filter(date -> {
             if (date != null)
                 return date.compareTo(new java.util.Date()) > 0 && date.compareTo(limitDate) > 0;
