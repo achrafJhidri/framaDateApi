@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.framadate.model.Constants.SURVEY;
 
 @Service
 public class ResultService {
@@ -25,7 +26,7 @@ public class ResultService {
     public Map<String, IGenericResult> getResults(Long surveyId) {
         var survey = surveyRepository.findById(surveyId);
         if (survey.isEmpty())
-            throw new NotFoundException("survey " + surveyId);
+            throw new NotFoundException(SURVEY + surveyId);
 
         var result = new HashMap<String, IGenericResult>();
 
