@@ -22,7 +22,7 @@ public class CreationSurveyDto {
     @NotBlank(message = "leave a valid description")
     @Size(min = 5)
     String description;
-    @NotNull
-    @Future(message = "you can't pu a limitDate in the past")
+    @NotNull(message = "leave a limit date")
+    @Future(message = "you can't put a limitDate in the past")
     Date limitDate;
 }
