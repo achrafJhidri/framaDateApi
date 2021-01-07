@@ -7,15 +7,15 @@ stages:
   - deploy
 
 build:
-  tags:
-    - build
+#  tags:
+  #    - build
   stage: build
   script:
     - ./mvnw clean compile
 
 coverage:
-  tags:
-    - test
+  #  tags:
+  #    - test
   stage: test
   script:
     - ./mvnw  clean -B -fae clover:setup test clover:aggregate clover:clover clover:check
@@ -26,23 +26,23 @@ coverage:
     when: always
 
 test:
-  tags:
-    - test
+  #  tags:
+  #    - test
   stage: test
   script:
     - ./mvnw  test
 
 sonar:
-  tags:
-    - quality
+  #  tags:
+  #    - quality
   stage: quality
   script:
     ./mvnw clean verify sonar:sonar
 
 
 deploy:
-  tags:
-    - deploy
+  #  tags:
+  #    - deploy
   stage: deploy
   script:
     - ./mvnw package
