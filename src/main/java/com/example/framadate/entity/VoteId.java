@@ -34,11 +34,11 @@ public class VoteId implements Serializable {
         final int PRIME = 59;
         int result = 1;
         final Long user = this.getUserId();
-        result = result * PRIME + (userId == null ? 43 : userId.hashCode());
+        result = result * PRIME + (user == null ? 43 : user.hashCode());
         final Date date = this.getDateId();
-        result = result * PRIME + (dateId == null ? 43 : dateId.hashCode());
+        result = result * PRIME + (date == null ? 43 : date.hashCode());
         final Long survey = this.getSurveyId();
-        result = result * PRIME + (surveyId == null ? 43 : surveyId.hashCode());
+        result = result * PRIME + (survey == null ? 43 : survey.hashCode());
         return result;
     }
 
