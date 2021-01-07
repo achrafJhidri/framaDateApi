@@ -11,7 +11,7 @@ public class CommentMapper {
     public CommentDto toDto(Comment comment) {
         return CommentDto.builder()
                 .id(comment.getId())
-                .comment(comment.getComment())
+                .comment(comment.getContent())
                 .creationDate(comment.getCreationDate())
                 .lastUpdate(comment.getLastUpdate())
                 .userId(comment.getUser().getId())
@@ -20,11 +20,11 @@ public class CommentMapper {
 
     public Comment toEntity(ClientCommentDto commentDto) {
         return Comment.builder()
-                .comment(commentDto.getComment().trim())
+                .content(commentDto.getComment().trim())
                 .build();
     }
 
     public void toEntity(Comment comment, ClientCommentDto commentDto) {
-        comment.setComment(commentDto.getComment());
+        comment.setContent(commentDto.getComment());
     }
 }

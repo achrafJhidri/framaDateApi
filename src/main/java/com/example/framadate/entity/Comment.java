@@ -20,7 +20,7 @@ public class Comment {
     @GeneratedValue
     private Long id;
 
-    private String comment;
+    private String content;
     private Date creationDate;
     private Date lastUpdate;
 
@@ -42,7 +42,7 @@ public class Comment {
     }
 
     public String toString() {
-        return String.join(",", comment, creationDate.toString(), lastUpdate.toString(), user.toString());
+        return String.join(",", content, creationDate.toString(), lastUpdate.toString(), user.toString());
     }
 
     public Long getUserId() {
