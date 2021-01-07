@@ -43,10 +43,12 @@ public class ResultService {
         var availableOnlyResult = voteRepository.countVotesForSomeAvailability(surveyId, 'A');
         var availableOrMaybeResult = voteRepository.countMaybeOrAvailableVotes(surveyId);
 
-        if (!availableOrMaybeResult.isEmpty())
+        if (availableOrMaybeResult.stream().findFirst().isPresent())
             result.put("available or maybe votes", availableOrMaybeResult.stream().findFirst().get());
-        if (!availableOnlyResult.isEmpty())
+        if (availableOnlyResult.stream().findFirst().isPresent()) {
+
             result.put("only available votes", availableOnlyResult.stream().findFirst().get());
+        }
 
         return result;
     }
