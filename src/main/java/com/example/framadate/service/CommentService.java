@@ -79,6 +79,6 @@ public class CommentService {
             throw new NotFoundException("comment " + commentId);
         }
         commentRepository.delete(comment.get());
-        return comment.get().getComment() + " has been deleted";
+        return comment.get().getContent() + " has been deleted";
     }
 }
