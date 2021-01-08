@@ -20,7 +20,7 @@ public class VoteMapper {
         return VoteDto.builder()
                 .voteIdDto(voteIdMapper.toDto(vote.getVoteId()))
                 .availability(vote.getAvailability())
-                .comment(vote.getComment())
+                .comment(vote.getComment().trim())
                 .lastUpdate(vote.getLastUpdate())
                 .votingDate(vote.getVotingDate())
                 .build();
@@ -29,7 +29,7 @@ public class VoteMapper {
     public Vote toEntity(PostVoteDto voteDto) {
         return Vote.builder()
                 .availability(voteDto.getAvailability())
-                .comment(voteDto.getComment())
+                .comment(voteDto.getComment().trim())
                 .voteId(VoteId.builder().build())
                 .build();
     }

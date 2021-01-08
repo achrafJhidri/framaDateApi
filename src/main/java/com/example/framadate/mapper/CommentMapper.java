@@ -25,6 +25,6 @@ public class CommentMapper {
     }
 
     public void toEntity(Comment comment, ClientCommentDto commentDto) {
-        comment.setContent(commentDto.getComment());
+        comment.setContent(commentDto.getComment().trim());
     }
 }
