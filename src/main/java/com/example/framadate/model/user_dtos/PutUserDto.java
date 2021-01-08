@@ -13,9 +13,9 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class PutUserDto {
     @Getter
-    @Size(min = 2)
+    @Size(message = "the name must have at least 2 characters", min = 2)
     private String name;
     @Getter
-    @Email
+    @Email(message = "the email must be syntactically correct")
     private String email;
 }

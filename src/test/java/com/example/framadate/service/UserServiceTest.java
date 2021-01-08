@@ -48,12 +48,10 @@ class UserServiceTest {
         verify(userMapper, times(1)).toEntity(userDto);
         verify(userRepository, times(1)).saveAndFlush(user);
         verify(userMapper, times(1)).toDto(user);
-
-
     }
 
     @Test
-    void givenInvalidUser_whenUpdate_thenValidUserSaved() {
+    void givenIncompleteUser_whenUpdate_thenValidUserSaved() {
         PutUserDto userDto = new PutUserDto("achraf", null);
         var opt = Optional.of(user);
         userDtoSaved = new UserDto(1L, "test", "test@ud.fr");

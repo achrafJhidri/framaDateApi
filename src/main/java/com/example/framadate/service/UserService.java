@@ -57,6 +57,8 @@ public class UserService {
     }
 
     public String deleteUser(Long userId) {
+        //Not ready
+        //have to deletes votes and comments of the actual user
         Optional<User> user = userRepository.findById(userId);
         if (user.isEmpty()) {
             throw new NotFoundException(USER + userId);

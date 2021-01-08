@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class PostUserDto {
     @Getter
-    @NotBlank(message = "name mustn't be empty")
+    @NotBlank(message = "name mustn't be empty and minimum 2 characters")
     @Size(min = 2, max = 15)
     private String name;
     @Getter

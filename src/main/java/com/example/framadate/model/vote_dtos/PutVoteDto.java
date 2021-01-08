@@ -17,12 +17,12 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PutVoteDto {
-    @Size(min = 2)
+    @Size(message = "the comment must have at least 2 characters", min = 2)
     String comment;
     Availability availability;
     @PositiveOrZero
-    @NotNull
+    @NotNull(message = "userId mustn't be null")
     Long userId;
-    @NotNull
+    @NotNull(message = "dateId mustn't be null")
     Date dateId;
 }

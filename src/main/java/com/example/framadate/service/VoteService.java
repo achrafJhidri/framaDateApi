@@ -79,8 +79,7 @@ public class VoteService {
             throw new NotFoundException(DATE + voteDto.getDateId());
 
         return this.saveVote(user
-                , date.get() /*no need to check isPresent cz it wouldn't be inside
-                                                                     the dates of the survey if it's not already in the db*/
+                , date.get()
                 , survey
                 , voteDto);
     }

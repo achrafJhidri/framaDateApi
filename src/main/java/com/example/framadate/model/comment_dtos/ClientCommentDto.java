@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
 public class ClientCommentDto {
     @Getter
     @NotBlank(message = "leave a valid comment")
-    @Size(min = 2)
+    @Size(message = "the comment must have at least 2 characters", min = 2)
     private String comment;
     @Getter
     @NotNull
