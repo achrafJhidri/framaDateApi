@@ -107,7 +107,7 @@ public class VoteService {
                 .stream().map(voteMapper::toDto).collect(Collectors.toList())).orElseThrow(() -> new NotFoundException(SURVEY + surveyId));
     }
 
-    private Survey checkSurvey(Long surveyId) {
+    public Survey checkSurvey(Long surveyId) {
         Optional<Survey> surveyOptional = surveyRepository.findById(surveyId);
         if (surveyOptional.isEmpty()) {
             throw new NotFoundException(SURVEY + surveyId);
@@ -120,7 +120,7 @@ public class VoteService {
         return surveyOptional.get();
     }
 
-    private User checkUser(Long userId) {
+    public User checkUser(Long userId) {
         val user = userRepository.findById(userId);
         if (user.isEmpty())
             throw new NotFoundException(USER + userId);
@@ -128,7 +128,7 @@ public class VoteService {
         return user.get();
     }
 
-    private Stream<com.example.framadate.entity.Date> checkDate(Survey survey, Date dateId) {
+    public Stream<com.example.framadate.entity.Date> checkDate(Survey survey, Date dateId) {
         return survey.getDates().stream()
                 .filter(date -> date.getTheDate().compareTo(dateId) == 0);
     }

@@ -44,12 +44,12 @@ class DateServiceTest {
     void givenValidDates_whenAddDates_thenOk() {
         Optional<Survey> surveyOpt = Optional.of(survey);
 
-        when(surveyRepository.findById(1L)).thenReturn(surveyOpt);
+        when(surveyRepository.findById(any(Long.class))).thenReturn(surveyOpt);
         when(surveyRepository.saveAndFlush(surveyOpt.get())).then(returnsFirstArg());
 
-        dateService.addDates(1L, this.dates);
+        dateService.addDates(any(Long.class), this.dates);
 
-        verify(surveyRepository, times(1)).findById(1L);
+        verify(surveyRepository, times(1)).findById(any(Long.class));
         verify(surveyRepository, times(1)).saveAndFlush(surveyOpt.get());
     }
 
@@ -60,13 +60,13 @@ class DateServiceTest {
 
         String dateId = "2200-10-02T13:14:59.000+00:00";
 
-        when(surveyRepository.findById(1L)).thenReturn(surveyOpt);
+        when(surveyRepository.findById(any(Long.class))).thenReturn(surveyOpt);
         when(surveyRepository.saveAndFlush(surveyOpt.get())).then(returnsFirstArg());
         when(survey.removeDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").parse(dateId))).thenReturn(true);
 
-        dateService.deleteDate(1L, dateId);
+        dateService.deleteDate(any(Long.class), dateId);
 
-        verify(surveyRepository, times(1)).findById(1L);
+        verify(surveyRepository, times(1)).findById(any(Long.class));
         verify(surveyRepository, times(1)).saveAndFlush(surveyOpt.get());
     }
 
