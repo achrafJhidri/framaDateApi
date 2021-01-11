@@ -81,7 +81,7 @@ public class DateService {
         try {
             dateParsed = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").parse(dateId);
         } catch (ParseException e) {
-            throw new ParseException("the format yyyy-MM-dd'T'HH:mm:ss.SSSXXX is not respected try something like 2000-12-29T15:01:20.000+00:00", e.getErrorOffset());
+            throw new ParseException("the format yyyy-MM-dd'T'HH:mm:ss.SSSXXX is not respected try something like 3000-12-29T15:01:20.000+00:00", e.getErrorOffset());
         }
 
         Optional<Survey> survey = surveyRepository.findById(surveyId);
