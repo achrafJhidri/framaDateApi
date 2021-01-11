@@ -17,6 +17,8 @@
     <properties>
         <java.version>11</java.version>
         <sonar.host.url>https://sonarqube.cedricmtta.com</sonar.host.url>
+        <sonar.clover.reportPath>${project.build.directory}/site/clover/clover.xml</sonar.clover.reportPath>
+        <sonar.surefire.reportsPath>${project.build.directory}/surefire-reports</sonar.surefire.reportsPath>
     </properties>
 
     <dependencies>
