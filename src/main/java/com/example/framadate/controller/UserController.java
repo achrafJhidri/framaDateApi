@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/framadate/api/v1/users")
-@Api(description = "User Resource REST Endpoint")
+@Api(tags = {"User Resource REST Endpoint"})
 public class UserController {
     private final UserService userService;
 

@@ -21,7 +21,7 @@ public class SwaggerConfig {
             "achrafjh@gmail.com"
     );
 
-    List<VendorExtension> vendorExtensions = new ArrayList<>();
+    List<VendorExtension> vendorExtensions = new ArrayList<VendorExtension>();
 
     ApiInfo apiInfo = new ApiInfo(
             "FramaDate Demo app RESTful Web Service documentation",

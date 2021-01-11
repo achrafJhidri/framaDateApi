@@ -15,7 +15,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/framadate/api/v1/surveys")
-@Api(description = "survey's dates Resource REST Endpoint")
+@Api(tags = {"Survey's dates Resource REST Endpoint"})
 public class DateController {
     private final DateService dateService;
 

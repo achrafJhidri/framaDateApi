@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/framadate/api/v1/surveys")
-@Api(description = "Survey Resource REST Endpoint")
+@Api(tags = {"Survey Resource REST Endpoint"})
 public class SurveyController {
 
     private final SurveyService surveyService;
