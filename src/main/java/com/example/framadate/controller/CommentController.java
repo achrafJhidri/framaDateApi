@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/framadate/api/v1/surveys")
-@Api(tags = {"Comment Resource REST Endpoint"})
+@Api(tags = {"Survey's Comments Resource REST Endpoint"})
 public class CommentController {
 
     private final CommentService commentService;

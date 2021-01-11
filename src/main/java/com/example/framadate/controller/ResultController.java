@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/framadate/api/v1/surveys")
-@Api(tags = {"survey's results Resource REST Endpoint"})
+@Api(tags = {"Survey's results Resource REST Endpoint"})
 public class ResultController {
 
     private final ResultService resultService;
