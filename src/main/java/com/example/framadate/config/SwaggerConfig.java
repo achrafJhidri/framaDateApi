@@ -11,7 +11,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
@@ -21,7 +20,7 @@ public class SwaggerConfig {
             "achrafjh@gmail.com"
     );
 
-    List<VendorExtension> vendorExtensions = new ArrayList<VendorExtension>();
+    ArrayList<VendorExtension> vendorExtensions = new ArrayList<>();
 
     ApiInfo apiInfo = new ApiInfo(
             "FramaDate Demo app RESTful Web Service documentation",
