@@ -14,7 +14,7 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class SurveyServiceTest {
+class SurveyServiceTest {
     @Mock
     private SurveyRepository surveyRepository;
 
