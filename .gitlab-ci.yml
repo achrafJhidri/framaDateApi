@@ -40,10 +40,10 @@ sonar:
     ./mvnw clean verify sonar:sonar
 
 
-#deploy:
-#  tags:
-#    - deploy
-#  stage: deploy
-#  script:
-#    - ./mvnw package
-#    - java -jar ./target/framadate-0.0.1-SNAPSHOT.jar
+deploy:
+  #  tags:
+  #    - deploy
+  stage: deploy
+  script:
+    - ./mvnw package
+    - java -jar ./target/framadate-0.0.1-SNAPSHOT.jar
